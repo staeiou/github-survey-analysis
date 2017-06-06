@@ -1,0 +1,2642 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{github-survey-descriptive-stats}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Requirement already satisfied: pandas in /home/staeiou/conda/lib/python3.5/site-packages
+Requirement already satisfied: seaborn in /home/staeiou/conda/lib/python3.5/site-packages
+Requirement already satisfied: scikit-learn in /home/staeiou/conda/lib/python3.5/site-packages
+Requirement already satisfied: python-dateutil>=2 in /home/staeiou/conda/lib/python3.5/site-packages (from pandas)
+Requirement already satisfied: pytz>=2011k in /home/staeiou/conda/lib/python3.5/site-packages (from pandas)
+Requirement already satisfied: numpy>=1.7.0 in /home/staeiou/conda/lib/python3.5/site-packages (from pandas)
+Requirement already satisfied: six>=1.5 in /home/staeiou/conda/lib/python3.5/site-packages (from python-dateutil>=2->pandas)
+
+    \end{Verbatim}
+
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+  \% Total    \% Received \% Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100  409k  100  409k    0     0   429k      0 --:--:-- --:--:-- --:--:--  430k
+
+    \end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Archive:  data\_for\_public\_release.zip
+
+    \end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+negative\_incidents.csv	questionnaire.txt  survey\_data.csv
+notes.txt		README.txt
+
+    \end{Verbatim}
+
+    \section{Data processing}\label{data-processing}
+
+\subsection{Main dataset}\label{main-dataset}
+
+    \subsubsection{Load main dataset into
+pandas}\label{load-main-dataset-into-pandas}
+
+
+
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}8}]:} 6029
+\end{Verbatim}
+        
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}9}]:} 3746
+\end{Verbatim}
+        
+    \subsubsection{Explore the main dataset with some sample
+responses}\label{explore-the-main-dataset-with-some-sample-responses}
+
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}10}]:}                                                                                                    3  \textbackslash{}
+         RESPONSE.ID                                                                                       48   
+         DATE.SUBMITTED                                                                         3/21/17 15:42   
+         STATUS                                                                                      Complete   
+         PARTICIPATION.TYPE.FOLLOW                                                                          1   
+         PARTICIPATION.TYPE.USE.APPLICATIONS                                                                1   
+         PARTICIPATION.TYPE.USE.DEPENDENCIES                                                                1   
+         PARTICIPATION.TYPE.CONTRIBUTE                                                                      1   
+         PARTICIPATION.TYPE.OTHER                                                                           0   
+         CONTRIBUTOR.TYPE.CONTRIBUTE.CODE                                                          Frequently   
+         CONTRIBUTOR.TYPE.CONTRIBUTE.DOCS                                                              Rarely   
+         CONTRIBUTOR.TYPE.PROJECT.MAINTENANCE                                                      Frequently   
+         CONTRIBUTOR.TYPE.FILE.BUGS                                                                Frequently   
+         CONTRIBUTOR.TYPE.FEATURE.REQUESTS                                                         Frequently   
+         CONTRIBUTOR.TYPE.COMMUNITY.ADMIN                                                               Never   
+         EMPLOYMENT.STATUS                                                                 Employed full time   
+         PROFESSIONAL.SOFTWARE                                                                     Frequently   
+         FUTURE.CONTRIBUTION.INTEREST                                                         Very interested   
+         FUTURE.CONTRIBUTION.LIKELIHOOD                                                           Very likely   
+         OSS.USER.PRIORITIES.LICENSE                                                   Very important to have   
+         OSS.USER.PRIORITIES.CODE.OF.CONDUCT                                   Somewhat important not to have   
+         OSS.USER.PRIORITIES.CONTRIBUTING.GUIDE                                    Somewhat important to have   
+         OSS.USER.PRIORITIES.CLA                                                     Not important either way   
+         OSS.USER.PRIORITIES.ACTIVE.DEVELOPMENT                                    Somewhat important to have   
+         OSS.USER.PRIORITIES.RESPONSIVE.MAINTAINERS                                Somewhat important to have   
+         OSS.USER.PRIORITIES.WELCOMING.COMMUNITY                                       Very important to have   
+         OSS.USER.PRIORITIES.WIDESPREAD.USE                                        Somewhat important to have   
+         OSS.CONTRIBUTOR.PRIORITIES.LICENSE                                          Not important either way   
+         OSS.CONTRIBUTOR.PRIORITIES.CODE.OF.CONDUCT                            Somewhat important not to have   
+         OSS.CONTRIBUTOR.PRIORITIES.CONTRIBUTING.GUIDE                               Not important either way   
+         OSS.CONTRIBUTOR.PRIORITIES.CLA                                              Not important either way   
+         OSS.CONTRIBUTOR.PRIORITIES.ACTIVE.DEVELOPMENT                             Somewhat important to have   
+         OSS.CONTRIBUTOR.PRIORITIES.RESPONSIVE.MAINTAINERS                         Somewhat important to have   
+         OSS.CONTRIBUTOR.PRIORITIES.WELCOMING.COMMUNITY                            Somewhat important to have   
+         OSS.CONTRIBUTOR.PRIORITIES.WIDESPREAD.USE                                 Somewhat important to have   
+         SEEK.OPEN.SOURCE                                                                           Sometimes   
+         OSS.UX                                                                       Generally easier to use   
+         OSS.SECURITY                                                                   Generally more secure   
+         OSS.STABILITY                                                                         About the same   
+         INTERNAL.EFFICACY                                                                     Strongly agree   
+         EXTERNAL.EFFICACY                                                                     Strongly agree   
+         OSS.IDENTIFICATION                                                        Neither agree nor disagree   
+         USER.VALUES.STABILITY                                                           Moderately important   
+         USER.VALUES.INNOVATION                                                          Not at all important   
+         USER.VALUES.REPLICABILITY                                                             Very important   
+         USER.VALUES.COMPATIBILITY                                                             Very important   
+         USER.VALUES.SECURITY                                                                  Very important   
+         USER.VALUES.COST                                                                      Very important   
+         USER.VALUES.TRANSPARENCY                                                              Very important   
+         USER.VALUES.USER.EXPERIENCE                                                      Extremely important   
+         USER.VALUES.CUSTOMIZABILITY                                                      Extremely important   
+         USER.VALUES.SUPPORT                                                               Slightly important   
+         USER.VALUES.TRUSTED.PRODUCER                                                          Very important   
+         TRANSPARENCY.PRIVACY.BELIEFS                       People should be able to contribute code witho{\ldots}   
+         INFO.AVAILABILITY                                                      A lot of information about me   
+         INFO.JOB                                                                                         Yes   
+         TRANSPARENCY.PRIVACY.PRACTICES.GENERAL                                       I include my real name.   
+         TRANSPARENCY.PRIVACY.PRACTICES.OSS                                           I include my real name.   
+         RECEIVED.HELP                                                                                    Yes   
+         FIND.HELPER                                                                  Other - Please describe   
+         HELPER.PRIOR.RELATIONSHIP                                                   We knew each other well.   
+         RECEIVED.HELP.TYPE                                     Writing code or otherwise implementing ideas.   
+         PROVIDED.HELP                                                                                    Yes   
+         FIND.HELPEE                                         I reached out to them to offer unsolicited help.   
+         HELPEE.PRIOR.RELATIONSHIP                          Total strangers, I didn't know of them previou{\ldots}   
+         PROVIDED.HELP.TYPE                                     Writing code or otherwise implementing ideas.   
+         DISCOURAGING.BEHAVIOR.LACK.OF.RESPONSE                                                           Yes   
+         DISCOURAGING.BEHAVIOR.REJECTION.WOUT.EXPLANATION                                                 Yes   
+         DISCOURAGING.BEHAVIOR.DISMISSIVE.RESPONSE                                                        Yes   
+         DISCOURAGING.BEHAVIOR.BAD.DOCS                                                                   Yes   
+         DISCOURAGING.BEHAVIOR.CONFLICT                                                                   Yes   
+         DISCOURAGING.BEHAVIOR.UNWELCOMING.LANGUAGE                                                        No   
+         OSS.AS.JOB                                         Yes, directly-  some or all of my work duties {\ldots}   
+         OSS.AT.WORK                                                                               Frequently   
+         OSS.IP.POLICY                                      I am free to contribute without asking for per{\ldots}   
+         EMPLOYER.POLICY.APPLICATIONS                       Use of open source applications is acceptable {\ldots}   
+         EMPLOYER.POLICY.DEPENDENCIES                       Use of open source dependencies is acceptable {\ldots}   
+         OSS.HIRING                                                                            Very important   
+         IMMIGRATION                                              No, I live in the country where I was born.   
+         MINORITY.HOMECOUNTRY                                                                             NaN   
+         MINORITY.CURRENT.COUNTRY                                                                          No   
+         GENDER                                                                                           Man   
+         TRANSGENDER.IDENTITY                                                                              No   
+         SEXUAL.ORIENTATION                                                                                No   
+         WRITTEN.ENGLISH                                                                            Very well   
+         AGE                                                                                   35 to 44 years   
+         FORMAL.EDUCATION                                                                   Bachelor's degree   
+         PARENTS.FORMAL.EDUCATION                                                           Bachelor's degree   
+         AGE.AT.FIRST.COMPUTER.INTERNET                                                     13 - 17 years old   
+         LOCATION.OF.FIRST.COMPUTER.INTERNET                     At home (belonging to me or a family member)   
+         PARTICIPATION.TYPE.ANY.REPONSE                                                                     1   
+         POPULATION                                                                                    github   
+         OFF.SITE.ID                                                                                      NaN   
+         TRANSLATED                                                                                         0   
+         
+                                                                                                            4  \textbackslash{}
+         RESPONSE.ID                                                                                       49   
+         DATE.SUBMITTED                                                                         3/21/17 15:38   
+         STATUS                                                                                      Complete   
+         PARTICIPATION.TYPE.FOLLOW                                                                          1   
+         PARTICIPATION.TYPE.USE.APPLICATIONS                                                                1   
+         PARTICIPATION.TYPE.USE.DEPENDENCIES                                                                1   
+         PARTICIPATION.TYPE.CONTRIBUTE                                                                      1   
+         PARTICIPATION.TYPE.OTHER                                                                           0   
+         CONTRIBUTOR.TYPE.CONTRIBUTE.CODE                                                        Occasionally   
+         CONTRIBUTOR.TYPE.CONTRIBUTE.DOCS                                                              Rarely   
+         CONTRIBUTOR.TYPE.PROJECT.MAINTENANCE                                                          Rarely   
+         CONTRIBUTOR.TYPE.FILE.BUGS                                                                Frequently   
+         CONTRIBUTOR.TYPE.FEATURE.REQUESTS                                                         Frequently   
+         CONTRIBUTOR.TYPE.COMMUNITY.ADMIN                                                        Occasionally   
+         EMPLOYMENT.STATUS                                                                  Full time student   
+         PROFESSIONAL.SOFTWARE                                                                            NaN   
+         FUTURE.CONTRIBUTION.INTEREST                                                         Very interested   
+         FUTURE.CONTRIBUTION.LIKELIHOOD                                                           Very likely   
+         OSS.USER.PRIORITIES.LICENSE                                                   Very important to have   
+         OSS.USER.PRIORITIES.CODE.OF.CONDUCT                                       Somewhat important to have   
+         OSS.USER.PRIORITIES.CONTRIBUTING.GUIDE                                        Very important to have   
+         OSS.USER.PRIORITIES.CLA                                                       Very important to have   
+         OSS.USER.PRIORITIES.ACTIVE.DEVELOPMENT                                        Very important to have   
+         OSS.USER.PRIORITIES.RESPONSIVE.MAINTAINERS                                    Very important to have   
+         OSS.USER.PRIORITIES.WELCOMING.COMMUNITY                                       Very important to have   
+         OSS.USER.PRIORITIES.WIDESPREAD.USE                                          Not important either way   
+         OSS.CONTRIBUTOR.PRIORITIES.LICENSE                                                               NaN   
+         OSS.CONTRIBUTOR.PRIORITIES.CODE.OF.CONDUCT                                                       NaN   
+         OSS.CONTRIBUTOR.PRIORITIES.CONTRIBUTING.GUIDE                                                    NaN   
+         OSS.CONTRIBUTOR.PRIORITIES.CLA                                                                   NaN   
+         OSS.CONTRIBUTOR.PRIORITIES.ACTIVE.DEVELOPMENT                                                    NaN   
+         OSS.CONTRIBUTOR.PRIORITIES.RESPONSIVE.MAINTAINERS                                                NaN   
+         OSS.CONTRIBUTOR.PRIORITIES.WELCOMING.COMMUNITY                                                   NaN   
+         OSS.CONTRIBUTOR.PRIORITIES.WIDESPREAD.USE                                                        NaN   
+         SEEK.OPEN.SOURCE                                                                              Always   
+         OSS.UX                                                                                About the same   
+         OSS.SECURITY                                                                   Generally more secure   
+         OSS.STABILITY                                                                  Generally less stable   
+         INTERNAL.EFFICACY                                                                     Strongly agree   
+         EXTERNAL.EFFICACY                                                                     Strongly agree   
+         OSS.IDENTIFICATION                                                                    Strongly agree   
+         USER.VALUES.STABILITY                                                            Extremely important   
+         USER.VALUES.INNOVATION                                                                Very important   
+         USER.VALUES.REPLICABILITY                                                             Very important   
+         USER.VALUES.COMPATIBILITY                                                             Very important   
+         USER.VALUES.SECURITY                                                                  Very important   
+         USER.VALUES.COST                                                                Not at all important   
+         USER.VALUES.TRANSPARENCY                                                         Extremely important   
+         USER.VALUES.USER.EXPERIENCE                                                     Moderately important   
+         USER.VALUES.CUSTOMIZABILITY                                                           Very important   
+         USER.VALUES.SUPPORT                                                             Moderately important   
+         USER.VALUES.TRUSTED.PRODUCER                                                      Slightly important   
+         TRANSPARENCY.PRIVACY.BELIEFS                       People should be able to contribute code witho{\ldots}   
+         INFO.AVAILABILITY                                                      A lot of information about me   
+         INFO.JOB                                                                                          No   
+         TRANSPARENCY.PRIVACY.PRACTICES.GENERAL                                       I include my real name.   
+         TRANSPARENCY.PRIVACY.PRACTICES.OSS                                           I include my real name.   
+         RECEIVED.HELP                                                                                    Yes   
+         FIND.HELPER                                        I asked for help in a public forum (e.g. in a {\ldots}   
+         HELPER.PRIOR.RELATIONSHIP                          Total strangers, I didn't know of them previou{\ldots}   
+         RECEIVED.HELP.TYPE                                               Installing or using an application.   
+         PROVIDED.HELP                                                                                    Yes   
+         FIND.HELPEE                                        They asked for help in a public forum (e.g. in{\ldots}   
+         HELPEE.PRIOR.RELATIONSHIP                          Total strangers, I didn't know of them previou{\ldots}   
+         PROVIDED.HELP.TYPE                                               Installing or using an application.   
+         DISCOURAGING.BEHAVIOR.LACK.OF.RESPONSE                                                           Yes   
+         DISCOURAGING.BEHAVIOR.REJECTION.WOUT.EXPLANATION                                                  No   
+         DISCOURAGING.BEHAVIOR.DISMISSIVE.RESPONSE                                                        Yes   
+         DISCOURAGING.BEHAVIOR.BAD.DOCS                                                                   Yes   
+         DISCOURAGING.BEHAVIOR.CONFLICT                                                                   Yes   
+         DISCOURAGING.BEHAVIOR.UNWELCOMING.LANGUAGE                                                        No   
+         OSS.AS.JOB                                                                                       NaN   
+         OSS.AT.WORK                                                                                      NaN   
+         OSS.IP.POLICY                                                                                    NaN   
+         EMPLOYER.POLICY.APPLICATIONS                                                                     NaN   
+         EMPLOYER.POLICY.DEPENDENCIES                                                                     NaN   
+         OSS.HIRING                                                                                       NaN   
+         IMMIGRATION                                              No, I live in the country where I was born.   
+         MINORITY.HOMECOUNTRY                                                                             NaN   
+         MINORITY.CURRENT.COUNTRY                                                                          No   
+         GENDER                                                                                           Man   
+         TRANSGENDER.IDENTITY                                                                              No   
+         SEXUAL.ORIENTATION                                                                               Yes   
+         WRITTEN.ENGLISH                                                                            Very well   
+         AGE                                                                                    17 or younger   
+         FORMAL.EDUCATION                                      Secondary (high) school graduate or equivalent   
+         PARENTS.FORMAL.EDUCATION                                                             Master's degree   
+         AGE.AT.FIRST.COMPUTER.INTERNET                                             Younger than 13 years old   
+         LOCATION.OF.FIRST.COMPUTER.INTERNET                     At home (belonging to me or a family member)   
+         PARTICIPATION.TYPE.ANY.REPONSE                                                                     1   
+         POPULATION                                                                                    github   
+         OFF.SITE.ID                                                                                      NaN   
+         TRANSLATED                                                                                         0   
+         
+                                                                                                            6  
+         RESPONSE.ID                                                                                       51  
+         DATE.SUBMITTED                                                                         3/21/17 15:41  
+         STATUS                                                                                      Complete  
+         PARTICIPATION.TYPE.FOLLOW                                                                          1  
+         PARTICIPATION.TYPE.USE.APPLICATIONS                                                                1  
+         PARTICIPATION.TYPE.USE.DEPENDENCIES                                                                1  
+         PARTICIPATION.TYPE.CONTRIBUTE                                                                      0  
+         PARTICIPATION.TYPE.OTHER                                                                           0  
+         CONTRIBUTOR.TYPE.CONTRIBUTE.CODE                                                                 NaN  
+         CONTRIBUTOR.TYPE.CONTRIBUTE.DOCS                                                                 NaN  
+         CONTRIBUTOR.TYPE.PROJECT.MAINTENANCE                                                             NaN  
+         CONTRIBUTOR.TYPE.FILE.BUGS                                                                       NaN  
+         CONTRIBUTOR.TYPE.FEATURE.REQUESTS                                                                NaN  
+         CONTRIBUTOR.TYPE.COMMUNITY.ADMIN                                                                 NaN  
+         EMPLOYMENT.STATUS                                                                 Employed full time  
+         PROFESSIONAL.SOFTWARE                                                                     Frequently  
+         FUTURE.CONTRIBUTION.INTEREST                                                         Very interested  
+         FUTURE.CONTRIBUTION.LIKELIHOOD                                                     Somewhat unlikely  
+         OSS.USER.PRIORITIES.LICENSE                                                   Very important to have  
+         OSS.USER.PRIORITIES.CODE.OF.CONDUCT                                         Not important either way  
+         OSS.USER.PRIORITIES.CONTRIBUTING.GUIDE                                    Somewhat important to have  
+         OSS.USER.PRIORITIES.CLA                                                      Don't know what this is  
+         OSS.USER.PRIORITIES.ACTIVE.DEVELOPMENT                                        Very important to have  
+         OSS.USER.PRIORITIES.RESPONSIVE.MAINTAINERS                                    Very important to have  
+         OSS.USER.PRIORITIES.WELCOMING.COMMUNITY                                   Somewhat important to have  
+         OSS.USER.PRIORITIES.WIDESPREAD.USE                                        Somewhat important to have  
+         OSS.CONTRIBUTOR.PRIORITIES.LICENSE                                                               NaN  
+         OSS.CONTRIBUTOR.PRIORITIES.CODE.OF.CONDUCT                                                       NaN  
+         OSS.CONTRIBUTOR.PRIORITIES.CONTRIBUTING.GUIDE                                                    NaN  
+         OSS.CONTRIBUTOR.PRIORITIES.CLA                                                                   NaN  
+         OSS.CONTRIBUTOR.PRIORITIES.ACTIVE.DEVELOPMENT                                                    NaN  
+         OSS.CONTRIBUTOR.PRIORITIES.RESPONSIVE.MAINTAINERS                                                NaN  
+         OSS.CONTRIBUTOR.PRIORITIES.WELCOMING.COMMUNITY                                                   NaN  
+         OSS.CONTRIBUTOR.PRIORITIES.WIDESPREAD.USE                                                        NaN  
+         SEEK.OPEN.SOURCE                                                                              Always  
+         OSS.UX                                                                       Generally easier to use  
+         OSS.SECURITY                                                                          About the same  
+         OSS.STABILITY                                                                         About the same  
+         INTERNAL.EFFICACY                                                                     Strongly agree  
+         EXTERNAL.EFFICACY                                                         Neither agree nor disagree  
+         OSS.IDENTIFICATION                                                        Neither agree nor disagree  
+         USER.VALUES.STABILITY                                                            Extremely important  
+         USER.VALUES.INNOVATION                                                          Moderately important  
+         USER.VALUES.REPLICABILITY                                                       Moderately important  
+         USER.VALUES.COMPATIBILITY                                                        Extremely important  
+         USER.VALUES.SECURITY                                                             Extremely important  
+         USER.VALUES.COST                                                                      Very important  
+         USER.VALUES.TRANSPARENCY                                                         Extremely important  
+         USER.VALUES.USER.EXPERIENCE                                                           Very important  
+         USER.VALUES.CUSTOMIZABILITY                                                      Extremely important  
+         USER.VALUES.SUPPORT                                                             Not at all important  
+         USER.VALUES.TRUSTED.PRODUCER                                                    Moderately important  
+         TRANSPARENCY.PRIVACY.BELIEFS                       People should be able to contribute code witho{\ldots}  
+         INFO.AVAILABILITY                                                      A little information about me  
+         INFO.JOB                                                                                          No  
+         TRANSPARENCY.PRIVACY.PRACTICES.GENERAL                  I don't publish this kind of content online.  
+         TRANSPARENCY.PRIVACY.PRACTICES.OSS                                                               NaN  
+         RECEIVED.HELP                                                                                    Yes  
+         FIND.HELPER                                                      I asked a specific person for help.  
+         HELPER.PRIOR.RELATIONSHIP                                                   We knew each other well.  
+         RECEIVED.HELP.TYPE                                               Installing or using an application.  
+         PROVIDED.HELP                                                                                    Yes  
+         FIND.HELPEE                                                         They asked me directly for help.  
+         HELPEE.PRIOR.RELATIONSHIP                                                   We knew each other well.  
+         PROVIDED.HELP.TYPE                                               Installing or using an application.  
+         DISCOURAGING.BEHAVIOR.LACK.OF.RESPONSE                                                           Yes  
+         DISCOURAGING.BEHAVIOR.REJECTION.WOUT.EXPLANATION                                                  No  
+         DISCOURAGING.BEHAVIOR.DISMISSIVE.RESPONSE                                                        Yes  
+         DISCOURAGING.BEHAVIOR.BAD.DOCS                                                                   Yes  
+         DISCOURAGING.BEHAVIOR.CONFLICT                                                                    No  
+         DISCOURAGING.BEHAVIOR.UNWELCOMING.LANGUAGE                                                        No  
+         OSS.AS.JOB                                                                                       NaN  
+         OSS.AT.WORK                                                                               Frequently  
+         OSS.IP.POLICY                                                                          I'm not sure.  
+         EMPLOYER.POLICY.APPLICATIONS                          Use of open source applications is encouraged.  
+         EMPLOYER.POLICY.DEPENDENCIES                          Use of open source dependencies is encouraged.  
+         OSS.HIRING                                                                                       NaN  
+         IMMIGRATION                                                   Yes, and I intend to stay permanently.  
+         MINORITY.HOMECOUNTRY                                                                              No  
+         MINORITY.CURRENT.COUNTRY                                                                          No  
+         GENDER                                                                                           Man  
+         TRANSGENDER.IDENTITY                                                                              No  
+         SEXUAL.ORIENTATION                                                                                No  
+         WRITTEN.ENGLISH                                                                            Very well  
+         AGE                                                                                   35 to 44 years  
+         FORMAL.EDUCATION                                          Vocational/trade program or apprenticeship  
+         PARENTS.FORMAL.EDUCATION                                                           Bachelor's degree  
+         AGE.AT.FIRST.COMPUTER.INTERNET                                                     13 - 17 years old  
+         LOCATION.OF.FIRST.COMPUTER.INTERNET                     At home (belonging to me or a family member)  
+         PARTICIPATION.TYPE.ANY.REPONSE                                                                     1  
+         POPULATION                                                                                    github  
+         OFF.SITE.ID                                                                                      NaN  
+         TRANSLATED                                                                                         0  
+\end{Verbatim}
+        
+    \subsubsection{Create lists of variables for bulk
+analysis}\label{create-lists-of-variables-for-bulk-analysis}
+
+
+
+
+
+
+
+
+
+    \subsection{Negative incidents}\label{negative-incidents}
+
+\subsubsection{Load into pandas}\label{load-into-pandas}
+
+
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}20}]:} 6029
+\end{Verbatim}
+        
+    \subsubsection{Explore the negative dataset with some sample
+responses}\label{explore-the-negative-dataset-with-some-sample-responses}
+
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}21}]:}                                                          0       1       2
+         NEGATIVE.WITNESS.RUDENESS                                1       1       0
+         NEGATIVE.WITNESS.NAME.CALLING                            1       0       0
+         NEGATIVE.WITNESS.THREATS                                 0       0       0
+         NEGATIVE.WITNESS.IMPERSONATION                           0       0       1
+         NEGATIVE.WITNESS.SUSTAINED.HARASSMENT                    0       0       0
+         NEGATIVE.WITNESS.CROSS.PLATFORM.HARASSMENT               0       0       0
+         NEGATIVE.WITNESS.STALKING                                0       0       0
+         NEGATIVE.WITNESS.SEXUAL.ADVANCES                         0       0       0
+         NEGATIVE.WITNESS.STEREOTYPING                            0       0       0
+         NEGATIVE.WITNESS.DOXXING                                 0       0       1
+         NEGATIVE.WITNESS.OTHER                                   0       0       0
+         NEGATIVE.WITNESS.NONE.OF.THE.ABOVE                       0       0       0
+         NEGATIVE.EXPERIENCE.RUDENESS                             0       1       0
+         NEGATIVE.EXPERIENCE.NAME.CALLING                         0       0       0
+         NEGATIVE.EXPERIENCE.THREATS                              0       0       0
+         NEGATIVE.EXPERIENCE.IMPERSONATION                        0       0       0
+         NEGATIVE.EXPERIENCE.SUSTAINED.HARASSMENT                 0       0       0
+         NEGATIVE.EXPERIENCE.CROSS.PLATFORM.HARASSMENT            0       0       0
+         NEGATIVE.EXPERIENCE.STALKING                             0       0       0
+         NEGATIVE.EXPERIENCE.SEXUAL.ADVANCES                      0       0       0
+         NEGATIVE.EXPERIENCE.STEREOTYPING                         0       0       0
+         NEGATIVE.EXPERIENCE.DOXXING                              0       0       0
+         NEGATIVE.EXPERIENCE.OTHER                                0       0       0
+         NEGATIVE.EXPERIENCE.NONE.OF.THE.ABOVE                    1       0       1
+         NEGATIVE.RESPONSE.ASKED.USER.TO.STOP                     0       0       0
+         NEGATIVE.RESPONSE.SOLICITED.COMMUNITY.SUPPORT            0       0       0
+         NEGATIVE.RESPONSE.BLOCKED.USER                           0       0       0
+         NEGATIVE.RESPONSE.REPORTED.TO.MAINTAINERS                0       0       0
+         NEGATIVE.RESPONSE.REPORTED.TO.HOST.OR.ISP                0       0       0
+         NEGATIVE.RESPONSE.CONSULTED.LEGAL.COUNSEL                0       0       0
+         NEGATIVE.RESPONSE.CONTACTED.LAW.ENFORCEMENT              0       0       0
+         NEGATIVE.RESPONSE.OTHER                                  0       0       0
+         NEGATIVE.RESPONSE.IGNORED                                0       1       0
+         RESPONSE.EFFECTIVENESS.ASKED.USER.TO.STOP              NaN     NaN     NaN
+         RESPONSE.EFFECTIVENESS.SOLICITED.COMMUNITY.SUPPORT     NaN     NaN     NaN
+         RESPONSE.EFFECTIVENESS.BLOCKED.USER                    NaN     NaN     NaN
+         RESPONSE.EFFECTIVENESS.REPORTED.TO.MAINTAINERS         NaN     NaN     NaN
+         RESPONSE.EFFECTIVENESS.REPORTED.TO.HOST.OR.ISP         NaN     NaN     NaN
+         RESPONSE.EFFECTIVENESS.CONSULTED.LEGAL.COUNSEL         NaN     NaN     NaN
+         RESPONSE.EFFECTIVENESS.CONTACTED.LAW.ENFORCEMENT       NaN     NaN     NaN
+         RESPONSE.EFFECTIVENESS.OTHER                           NaN     NaN     NaN
+         NEGATIVE.CONSEQUENCES.STOPPED.CONTRIBUTING               0       0       1
+         NEGATIVE.CONSEQUENCES.PSEUDONYM                          0       0       0
+         NEGATIVE.CONSEQUENCES.WORK.IN.PRIVATE                    0       0       0
+         NEGATIVE.CONSEQUENCES.CHANGE.USERNAME                    0       0       0
+         NEGATIVE.CONSEQUENCES.CHANGE.ONLINE.PRESENCE             0       0       0
+         NEGATIVE.CONSEQUENCES.SUGGEST.COC                        0       0       0
+         NEGATIVE.CONSEQUENCES.PRIVATE.COMMUNITY.DISCUSSION       0       0       0
+         NEGATIVE.CONSEQUENCES.PUBLIC.COMMUNITY.DISCUSSION        0       1       0
+         NEGATIVE.CONSEQUENCES.OFFLINE.CHANGES                    0       0       0
+         NEGATIVE.CONSEQUENCES.OTHER                              0       0       0
+         NEGATIVE.CONSEQUENCES.NONE.OF.THE.ABOVE                  1       0       0
+         NEGATIVE.WITNESS.ANY.RESPONSE                            1       1       1
+         NEGATIVE.EXPERIENCE.ANY.RESPONSE                         1       1       1
+         NEGATIVE.RESPONSE.ANY.RESPONSE                           0       1       0
+         NEGATIVE.CONSEQUENCES.ANY.RESPONSE                       1       1       1
+         POPULATION                                          github  github  github
+\end{Verbatim}
+        
+    \subsubsection{Create lists of variables for bulk
+analysis}\label{create-lists-of-variables-for-bulk-analysis}
+
+
+
+
+
+
+
+    \section{Analysis}\label{analysis}
+
+
+    \subsection{Contributor identity}\label{contributor-identity}
+
+    \subsubsection{People participate in open source in different ways.
+Which of the following activities do you engage
+in?}\label{people-participate-in-open-source-in-different-ways.-which-of-the-following-activities-do-you-engage-in}
+
+Choose all that apply.
+
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}29}]:}                                        No   Yes
+         PARTICIPATION.TYPE.FOLLOW            1287  4742
+         PARTICIPATION.TYPE.USE.APPLICATIONS   454  5575
+         PARTICIPATION.TYPE.USE.DEPENDENCIES   946  5083
+         PARTICIPATION.TYPE.CONTRIBUTE        1722  4307
+         PARTICIPATION.TYPE.OTHER             5742   287
+\end{Verbatim}
+        
+
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}30}]:}                                        percent
+         PARTICIPATION.TYPE.OTHER              4.760325
+         PARTICIPATION.TYPE.CONTRIBUTE        71.438049
+         PARTICIPATION.TYPE.FOLLOW            78.653176
+         PARTICIPATION.TYPE.USE.DEPENDENCIES  84.309172
+         PARTICIPATION.TYPE.USE.APPLICATIONS  92.469730
+\end{Verbatim}
+        
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}31}]:} <matplotlib.text.Text at 0x7f683c42ccf8>
+\end{Verbatim}
+        
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{github-survey-descriptive-stats_files/github-survey-descriptive-stats_42_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsubsection{Contributon type: How often do you engage in each of the
+following
+activities?}\label{contributon-type-how-often-do-you-engage-in-each-of-the-following-activities}
+
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}32}]:}                                       Frequently  Occasionally  Rarely  Never
+         CONTRIBUTOR.TYPE.COMMUNITY.ADMIN             287           417     867   2412
+         CONTRIBUTOR.TYPE.CONTRIBUTE.DOCS             460          1214    1665    661
+         CONTRIBUTOR.TYPE.FEATURE.REQUESTS            573          1625    1346    451
+         CONTRIBUTOR.TYPE.PROJECT.MAINTENANCE         996           944     974   1090
+         CONTRIBUTOR.TYPE.FILE.BUGS                  1067          2073     768    106
+         CONTRIBUTOR.TYPE.CONTRIBUTE.CODE            1160          1383    1301    189
+\end{Verbatim}
+        
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{github-survey-descriptive-stats_files/github-survey-descriptive-stats_45_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsubsection{Employment status}\label{employment-status}
+
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}34}]:} Employed full time                                             3615
+         Full time student                                              1048
+         Employed part time                                              349
+         Temporarily not working                                         314
+         Other - please describe                                         184
+         Retired or permanently not working (e.g. due to disability)      90
+         Name: EMPLOYMENT.STATUS, dtype: int64
+\end{Verbatim}
+        
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}35}]:}                                                       percent
+         Employed full time                                  64.553571
+         Full time student                                   18.714286
+         Employed part time                                   6.232143
+         Temporarily not working                              5.607143
+         Other - please describe                              3.285714
+         Retired or permanently not working (e.g. due to{\ldots}   1.607143
+\end{Verbatim}
+        
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}36}]:} <matplotlib.text.Text at 0x7f683c303630>
+\end{Verbatim}
+        
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{github-survey-descriptive-stats_files/github-survey-descriptive-stats_49_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsubsection{Professional software: In your main job, how often do you
+write or otherwise directly contribute to producing
+software?}\label{professional-software-in-your-main-job-how-often-do-you-write-or-otherwise-directly-contribute-to-producing-software}
+
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}37}]:} Frequently      2747
+         Occasionally     542
+         Rarely           339
+         Never            279
+         Name: PROFESSIONAL.SOFTWARE, dtype: int64
+\end{Verbatim}
+        
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}38}]:}                 percent
+         Frequently    70.309701
+         Occasionally  13.872536
+         Rarely         8.676734
+         Never          7.141029
+\end{Verbatim}
+        
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}39}]:} <matplotlib.text.Text at 0x7f683c0a4470>
+\end{Verbatim}
+        
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{github-survey-descriptive-stats_files/github-survey-descriptive-stats_53_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsubsection{How interested are you in contributing to open source
+projects in the
+future?}\label{how-interested-are-you-in-contributing-to-open-source-projects-in-the-future}
+
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}40}]:} Very interested          3929
+         Somewhat interested      1430
+         Not too interested        125
+         Not at all interested      24
+         Name: FUTURE.CONTRIBUTION.INTEREST, dtype: int64
+\end{Verbatim}
+        
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}41}]:}                          percent
+         Very interested        71.332607
+         Somewhat interested    25.962237
+         Not too interested      2.269426
+         Not at all interested   0.435730
+\end{Verbatim}
+        
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}42}]:} <matplotlib.text.Text at 0x7f683c0c8e80>
+\end{Verbatim}
+        
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{github-survey-descriptive-stats_files/github-survey-descriptive-stats_57_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsubsection{How likely are you to contribute to open source projects
+in the
+future?}\label{how-likely-are-you-to-contribute-to-open-source-projects-in-the-future}
+
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}43}]:} Very likely          3271
+         Somewhat likely      1719
+         Somewhat unlikely     440
+         Very unlikely          81
+         Name: FUTURE.CONTRIBUTION.LIKELIHOOD, dtype: int64
+\end{Verbatim}
+        
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}44}]:}                      percent
+         Very likely        59.354019
+         Somewhat likely    31.192161
+         Somewhat unlikely   7.984032
+         Very unlikely       1.469788
+\end{Verbatim}
+        
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}45}]:} <matplotlib.text.Text at 0x7f682bf8f438>
+\end{Verbatim}
+        
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{github-survey-descriptive-stats_files/github-survey-descriptive-stats_61_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsection{Priorities and values}\label{priorities-and-values}
+
+    \subsubsection{When thinking about whether to use open source software,
+how important are the following
+things?}\label{when-thinking-about-whether-to-use-open-source-software-how-important-are-the-following-things}
+
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}46}]:}                                             Very important to have  \textbackslash{}
+         OSS.USER.PRIORITIES.CLA                                        490   
+         OSS.USER.PRIORITIES.CODE.OF.CONDUCT                            848   
+         OSS.USER.PRIORITIES.WIDESPREAD.USE                             984   
+         OSS.USER.PRIORITIES.CONTRIBUTING.GUIDE                        1212   
+         OSS.USER.PRIORITIES.WELCOMING.COMMUNITY                       2062   
+         OSS.USER.PRIORITIES.RESPONSIVE.MAINTAINERS                    2575   
+         OSS.USER.PRIORITIES.ACTIVE.DEVELOPMENT                        2768   
+         OSS.USER.PRIORITIES.LICENSE                                   3125   
+         
+                                                     Somewhat important to have  \textbackslash{}
+         OSS.USER.PRIORITIES.CLA                                           1024   
+         OSS.USER.PRIORITIES.CODE.OF.CONDUCT                               1461   
+         OSS.USER.PRIORITIES.WIDESPREAD.USE                                2067   
+         OSS.USER.PRIORITIES.CONTRIBUTING.GUIDE                            1866   
+         OSS.USER.PRIORITIES.WELCOMING.COMMUNITY                           1822   
+         OSS.USER.PRIORITIES.RESPONSIVE.MAINTAINERS                        1850   
+         OSS.USER.PRIORITIES.ACTIVE.DEVELOPMENT                            1722   
+         OSS.USER.PRIORITIES.LICENSE                                       1160   
+         
+                                                     Not important either way  \textbackslash{}
+         OSS.USER.PRIORITIES.CLA                                         2282   
+         OSS.USER.PRIORITIES.CODE.OF.CONDUCT                             1993   
+         OSS.USER.PRIORITIES.WIDESPREAD.USE                              1576   
+         OSS.USER.PRIORITIES.CONTRIBUTING.GUIDE                          1516   
+         OSS.USER.PRIORITIES.WELCOMING.COMMUNITY                          812   
+         OSS.USER.PRIORITIES.RESPONSIVE.MAINTAINERS                       302   
+         OSS.USER.PRIORITIES.ACTIVE.DEVELOPMENT                           267   
+         OSS.USER.PRIORITIES.LICENSE                                      435   
+         
+                                                     Somewhat important not to have  \textbackslash{}
+         OSS.USER.PRIORITIES.CLA                                                336   
+         OSS.USER.PRIORITIES.CODE.OF.CONDUCT                                    166   
+         OSS.USER.PRIORITIES.WIDESPREAD.USE                                     114   
+         OSS.USER.PRIORITIES.CONTRIBUTING.GUIDE                                  95   
+         OSS.USER.PRIORITIES.WELCOMING.COMMUNITY                                 67   
+         OSS.USER.PRIORITIES.RESPONSIVE.MAINTAINERS                              31   
+         OSS.USER.PRIORITIES.ACTIVE.DEVELOPMENT                                  30   
+         OSS.USER.PRIORITIES.LICENSE                                             31   
+         
+                                                     Very important not to have  \textbackslash{}
+         OSS.USER.PRIORITIES.CLA                                            157   
+         OSS.USER.PRIORITIES.CODE.OF.CONDUCT                                120   
+         OSS.USER.PRIORITIES.WIDESPREAD.USE                                  47   
+         OSS.USER.PRIORITIES.CONTRIBUTING.GUIDE                              62   
+         OSS.USER.PRIORITIES.WELCOMING.COMMUNITY                             33   
+         OSS.USER.PRIORITIES.RESPONSIVE.MAINTAINERS                          35   
+         OSS.USER.PRIORITIES.ACTIVE.DEVELOPMENT                              31   
+         OSS.USER.PRIORITIES.LICENSE                                         33   
+         
+                                                     Don't know what this is  
+         OSS.USER.PRIORITIES.CLA                                         488  
+         OSS.USER.PRIORITIES.CODE.OF.CONDUCT                             209  
+         OSS.USER.PRIORITIES.WIDESPREAD.USE                               28  
+         OSS.USER.PRIORITIES.CONTRIBUTING.GUIDE                           62  
+         OSS.USER.PRIORITIES.WELCOMING.COMMUNITY                          18  
+         OSS.USER.PRIORITIES.RESPONSIVE.MAINTAINERS                       20  
+         OSS.USER.PRIORITIES.ACTIVE.DEVELOPMENT                           16  
+         OSS.USER.PRIORITIES.LICENSE                                      47  
+\end{Verbatim}
+        
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{github-survey-descriptive-stats_files/github-survey-descriptive-stats_65_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsubsection{When thinking about whether to contribute to an open
+source project, how important are the following
+things?}\label{when-thinking-about-whether-to-contribute-to-an-open-source-project-how-important-are-the-following-things}
+
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}48}]:}                                                    Very important to have  \textbackslash{}
+         OSS.CONTRIBUTOR.PRIORITIES.WIDESPREAD.USE                             387   
+         OSS.CONTRIBUTOR.PRIORITIES.CLA                                        419   
+         OSS.CONTRIBUTOR.PRIORITIES.CODE.OF.CONDUCT                            655   
+         OSS.CONTRIBUTOR.PRIORITIES.CONTRIBUTING.GUIDE                        1198   
+         OSS.CONTRIBUTOR.PRIORITIES.ACTIVE.DEVELOPMENT                        1368   
+         OSS.CONTRIBUTOR.PRIORITIES.WELCOMING.COMMUNITY                       1533   
+         OSS.CONTRIBUTOR.PRIORITIES.RESPONSIVE.MAINTAINERS                    1994   
+         OSS.CONTRIBUTOR.PRIORITIES.LICENSE                                   2199   
+         
+                                                            Somewhat important to have  \textbackslash{}
+         OSS.CONTRIBUTOR.PRIORITIES.WIDESPREAD.USE                                1016   
+         OSS.CONTRIBUTOR.PRIORITIES.CLA                                            712   
+         OSS.CONTRIBUTOR.PRIORITIES.CODE.OF.CONDUCT                               1145   
+         OSS.CONTRIBUTOR.PRIORITIES.CONTRIBUTING.GUIDE                            1396   
+         OSS.CONTRIBUTOR.PRIORITIES.ACTIVE.DEVELOPMENT                            1333   
+         OSS.CONTRIBUTOR.PRIORITIES.WELCOMING.COMMUNITY                           1199   
+         OSS.CONTRIBUTOR.PRIORITIES.RESPONSIVE.MAINTAINERS                        1022   
+         OSS.CONTRIBUTOR.PRIORITIES.LICENSE                                        610   
+         
+                                                            Not important either way  \textbackslash{}
+         OSS.CONTRIBUTOR.PRIORITIES.WIDESPREAD.USE                              1666   
+         OSS.CONTRIBUTOR.PRIORITIES.CLA                                         1266   
+         OSS.CONTRIBUTOR.PRIORITIES.CODE.OF.CONDUCT                             1085   
+         OSS.CONTRIBUTOR.PRIORITIES.CONTRIBUTING.GUIDE                           500   
+         OSS.CONTRIBUTOR.PRIORITIES.ACTIVE.DEVELOPMENT                           448   
+         OSS.CONTRIBUTOR.PRIORITIES.WELCOMING.COMMUNITY                          411   
+         OSS.CONTRIBUTOR.PRIORITIES.RESPONSIVE.MAINTAINERS                       138   
+         OSS.CONTRIBUTOR.PRIORITIES.LICENSE                                      337   
+         
+                                                            Somewhat important not to have  \textbackslash{}
+         OSS.CONTRIBUTOR.PRIORITIES.WIDESPREAD.USE                                      70   
+         OSS.CONTRIBUTOR.PRIORITIES.CLA                                                327   
+         OSS.CONTRIBUTOR.PRIORITIES.CODE.OF.CONDUCT                                    119   
+         OSS.CONTRIBUTOR.PRIORITIES.CONTRIBUTING.GUIDE                                  41   
+         OSS.CONTRIBUTOR.PRIORITIES.ACTIVE.DEVELOPMENT                                  21   
+         OSS.CONTRIBUTOR.PRIORITIES.WELCOMING.COMMUNITY                                 21   
+         OSS.CONTRIBUTOR.PRIORITIES.RESPONSIVE.MAINTAINERS                               7   
+         OSS.CONTRIBUTOR.PRIORITIES.LICENSE                                             16   
+         
+                                                            Very important not to have  \textbackslash{}
+         OSS.CONTRIBUTOR.PRIORITIES.WIDESPREAD.USE                                  30   
+         OSS.CONTRIBUTOR.PRIORITIES.CLA                                            166   
+         OSS.CONTRIBUTOR.PRIORITIES.CODE.OF.CONDUCT                                 84   
+         OSS.CONTRIBUTOR.PRIORITIES.CONTRIBUTING.GUIDE                              18   
+         OSS.CONTRIBUTOR.PRIORITIES.ACTIVE.DEVELOPMENT                              18   
+         OSS.CONTRIBUTOR.PRIORITIES.WELCOMING.COMMUNITY                             15   
+         OSS.CONTRIBUTOR.PRIORITIES.RESPONSIVE.MAINTAINERS                          16   
+         OSS.CONTRIBUTOR.PRIORITIES.LICENSE                                         15   
+         
+                                                            Don't know what this is  
+         OSS.CONTRIBUTOR.PRIORITIES.WIDESPREAD.USE                               12  
+         OSS.CONTRIBUTOR.PRIORITIES.CLA                                         280  
+         OSS.CONTRIBUTOR.PRIORITIES.CODE.OF.CONDUCT                              96  
+         OSS.CONTRIBUTOR.PRIORITIES.CONTRIBUTING.GUIDE                           24  
+         OSS.CONTRIBUTOR.PRIORITIES.ACTIVE.DEVELOPMENT                            5  
+         OSS.CONTRIBUTOR.PRIORITIES.WELCOMING.COMMUNITY                           7  
+         OSS.CONTRIBUTOR.PRIORITIES.RESPONSIVE.MAINTAINERS                        7  
+         OSS.CONTRIBUTOR.PRIORITIES.LICENSE                                      18  
+\end{Verbatim}
+        
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{github-survey-descriptive-stats_files/github-survey-descriptive-stats_68_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsubsection{How often do you try to find open source options over
+other kinds of
+software?}\label{how-often-do-you-try-to-find-open-source-options-over-other-kinds-of-software}
+
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}50}]:} Always       3407
+         Sometimes    1111
+         Rarely        100
+         Never          25
+         Name: SEEK.OPEN.SOURCE, dtype: int64
+\end{Verbatim}
+        
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}51}]:}              percent
+         Always     73.379281
+         Sometimes  23.928495
+         Rarely      2.153780
+         Never       0.538445
+\end{Verbatim}
+        
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}52}]:} <matplotlib.text.Text at 0x7f682bd8f400>
+\end{Verbatim}
+        
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{github-survey-descriptive-stats_files/github-survey-descriptive-stats_72_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsubsection{Do you believe that open source software is generally
+easier to use than closed source (proprietary) software, harder to use,
+or about the
+same?}\label{do-you-believe-that-open-source-software-is-generally-easier-to-use-than-closed-source-proprietary-software-harder-to-use-or-about-the-same}
+
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}53}]:} About the same             2027
+         Generally easier to use    1597
+         Generally harder to use     897
+         Name: OSS.UX, dtype: int64
+\end{Verbatim}
+        
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}54}]:}                            percent
+         About the same           44.835213
+         Generally easier to use  35.324043
+         Generally harder to use  19.840743
+\end{Verbatim}
+        
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}55}]:} <matplotlib.text.Text at 0x7f682bc706a0>
+\end{Verbatim}
+        
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{github-survey-descriptive-stats_files/github-survey-descriptive-stats_76_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsubsection{Do you believe that open source software is generally
+more secure than closed source (proprietary) software, less secure, or
+about the
+same?}\label{do-you-believe-that-open-source-software-is-generally-more-secure-than-closed-source-proprietary-software-less-secure-or-about-the-same}
+
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}56}]:} Generally more secure    2688
+         About the same           1537
+         Generally less secure     295
+         Name: OSS.SECURITY, dtype: int64
+\end{Verbatim}
+        
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}57}]:}                          percent
+         Generally more secure  59.469027
+         About the same         34.004425
+         Generally less secure   6.526549
+\end{Verbatim}
+        
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}58}]:} <matplotlib.text.Text at 0x7f6829f05588>
+\end{Verbatim}
+        
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{github-survey-descriptive-stats_files/github-survey-descriptive-stats_80_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsubsection{Do you believe that open source software is generally
+easier to use than closed source (proprietary) software, harder to use,
+or about the
+same?}\label{do-you-believe-that-open-source-software-is-generally-easier-to-use-than-closed-source-proprietary-software-harder-to-use-or-about-the-same}
+
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}59}]:} About the same           2240
+         Generally more stable    1399
+         Generally less stable     877
+         Name: OSS.STABILITY, dtype: int64
+\end{Verbatim}
+        
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}60}]:}                          percent
+         About the same         49.601417
+         Generally more stable  30.978742
+         Generally less stable  19.419841
+\end{Verbatim}
+        
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}61}]:} <matplotlib.text.Text at 0x7f6829f05588>
+\end{Verbatim}
+        
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{github-survey-descriptive-stats_files/github-survey-descriptive-stats_84_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+
+    \subsubsection{Identification w/ open
+source}\label{identification-w-open-source}
+
+
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}63}]:}                     Strongly agree  Somewhat agree  \textbackslash{}
+         EXTERNAL.EFFICACY             1518            1610   
+         OSS.IDENTIFICATION            1579            1513   
+         INTERNAL.EFFICACY             2052            1685   
+         
+                             Neither agree nor disagree  Somewhat disagree  \textbackslash{}
+         EXTERNAL.EFFICACY                         1116                150   
+         OSS.IDENTIFICATION                         863                351   
+         INTERNAL.EFFICACY                          418                240   
+         
+                             Strongly disagree  
+         EXTERNAL.EFFICACY                  58  
+         OSS.IDENTIFICATION                150  
+         INTERNAL.EFFICACY                  62  
+\end{Verbatim}
+        
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{github-survey-descriptive-stats_files/github-survey-descriptive-stats_89_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsection{Transparency vs privacy}\label{transparency-vs-privacy}
+
+    \subsubsection{Attribution}\label{attribution}
+
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}65}]:}                                                     TRANSPARENCY.PRIVACY.BELIEFS
+         People should be able to contribute code withou{\ldots}                          2454
+         Records of authorship should be required so tha{\ldots}                          1594
+\end{Verbatim}
+        
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}66}]:}                                                      percent
+         People should be able to contribute code withou{\ldots}  60.62253
+         Records of authorship should be required so tha{\ldots}  39.37747
+\end{Verbatim}
+        
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}67}]:} <matplotlib.text.Text at 0x7f6829ea0898>
+\end{Verbatim}
+        
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{github-survey-descriptive-stats_files/github-survey-descriptive-stats_94_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsubsection{In general, how much information about you is publicly
+available
+online?}\label{in-general-how-much-information-about-you-is-publicly-available-online}
+
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}68}]:} Some information about me         1776
+         A little information about me     1133
+         A lot of information about me     1011
+         No information at all about me     140
+         Name: INFO.AVAILABILITY, dtype: int64
+\end{Verbatim}
+        
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}69}]:}                                   percent
+         Some information about me       43.743842
+         A little information about me   27.906404
+         A lot of information about me   24.901478
+         No information at all about me   3.448276
+\end{Verbatim}
+        
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}70}]:} <matplotlib.text.Text at 0x7f6829df66a0>
+\end{Verbatim}
+        
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{github-survey-descriptive-stats_files/github-survey-descriptive-stats_98_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsubsection{Do you feel that you need to make information available
+about yourself online for professional
+reasons?}\label{do-you-feel-that-you-need-to-make-information-available-about-yourself-online-for-professional-reasons}
+
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}71}]:} Yes    2327
+         No     1638
+         Name: INFO.JOB, dtype: int64
+\end{Verbatim}
+        
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}72}]:}        percent
+         Yes  58.688525
+         No   41.311475
+\end{Verbatim}
+        
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}73}]:} <matplotlib.text.Text at 0x7f6829e32e80>
+\end{Verbatim}
+        
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{github-survey-descriptive-stats_files/github-survey-descriptive-stats_102_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsubsection{General privacy
+practices}\label{general-privacy-practices}
+
+"Which of the following best describes your practices around publishing
+content online, such as posts on social media (e.g. Facebook, Instagram,
+Twitter, etc.), blogs, and other platforms (not including contributions
+to open source projects)?" (single choice)
+
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}74}]:}                                                     TRANSPARENCY.PRIVACY.PRACTICES.GENERAL
+         I include my real name.                                                               1718
+         I usually use a consistent pseudonym that is ea{\ldots}                                    1141
+         I don't publish this kind of content online.                                           517
+         I usually use a consistent pseudonym that is no{\ldots}                                     363
+         I take precautions to use different pseudonymns{\ldots}                                     270
+\end{Verbatim}
+        
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}75}]:}                                                       percent
+         I include my real name.                             42.853579
+         I usually use a consistent pseudonym that is ea{\ldots}  28.460963
+         I don't publish this kind of content online.        12.895984
+         I usually use a consistent pseudonym that is no{\ldots}   9.054627
+         I take precautions to use different pseudonymns{\ldots}   6.734847
+\end{Verbatim}
+        
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}76}]:} <matplotlib.text.Text at 0x7f682be95048>
+\end{Verbatim}
+        
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{github-survey-descriptive-stats_files/github-survey-descriptive-stats_106_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsubsection{OSS privacy practices}\label{oss-privacy-practices}
+
+"Which of the following best describes your practices when making open
+source contributions?"
+
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}77}]:}                                                     TRANSPARENCY.PRIVACY.PRACTICES.OSS
+         I include my real name.                                                           1845
+         I usually contribute using a consistent pseudon{\ldots}                                 766
+         I usually contribute using a consistent pseudon{\ldots}                                 273
+         I take precautions to use different usernames  {\ldots}                                  42
+\end{Verbatim}
+        
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}78}]:}                                                       percent
+         I include my real name.                             63.055366
+         I usually contribute using a consistent pseudon{\ldots}  26.179084
+         I usually contribute using a consistent pseudon{\ldots}   9.330144
+         I take precautions to use different usernames  {\ldots}   1.435407
+\end{Verbatim}
+        
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}79}]:} <matplotlib.text.Text at 0x7f682be03a90>
+\end{Verbatim}
+        
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{github-survey-descriptive-stats_files/github-survey-descriptive-stats_110_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsection{Mentorship / Help}\label{mentorship-help}
+
+    \subsubsection{Have you ever received any kind of help from other people
+related to using or contributing to an open source
+project?}\label{have-you-ever-received-any-kind-of-help-from-other-people-related-to-using-or-contributing-to-an-open-source-project}
+
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}80}]:} Yes    2845
+         No     1064
+         Name: RECEIVED.HELP, dtype: int64
+\end{Verbatim}
+        
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}81}]:}        percent
+         Yes  72.780762
+         No   27.219238
+\end{Verbatim}
+        
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}82}]:} <matplotlib.text.Text at 0x7f682be41748>
+\end{Verbatim}
+        
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{github-survey-descriptive-stats_files/github-survey-descriptive-stats_115_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsubsection{Thinking of the most recent case where someone helped
+you, how did you find someone to help
+you?}\label{thinking-of-the-most-recent-case-where-someone-helped-you-how-did-you-find-someone-to-help-you}
+
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}83}]:}                                                     FIND.HELPER
+         I asked for help in a public forum (e.g. in a G{\ldots}         2057
+         I asked a specific person for help.                         403
+         Someone offered me unsolicited help.                        272
+         Other - Please describe                                      64
+\end{Verbatim}
+        
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}84}]:}                                                       percent
+         I asked for help in a public forum (e.g. in a G{\ldots}  73.569385
+         I asked a specific person for help.                 14.413448
+         Someone offered me unsolicited help.                 9.728183
+         Other - Please describe                              2.288984
+\end{Verbatim}
+        
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}85}]:} <matplotlib.text.Text at 0x7f683c1e3a90>
+\end{Verbatim}
+        
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{github-survey-descriptive-stats_files/github-survey-descriptive-stats_119_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsubsection{Which best describes your prior relationship with the
+person who helped
+you?}\label{which-best-describes-your-prior-relationship-with-the-person-who-helped-you}
+
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}86}]:}                                                     HELPER.PRIOR.RELATIONSHIP
+         Total strangers, I didn't know of them previously.                       1565
+         I knew of them through their contributions to p{\ldots}                        809
+         We knew each other a little.                                              211
+         We knew each other well.                                                  208
+\end{Verbatim}
+        
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}87}]:}                                                       percent
+         Total strangers, I didn't know of them previously.  56.032939
+         I knew of them through their contributions to p{\ldots}  28.965270
+         We knew each other a little.                         7.554601
+         We knew each other well.                             7.447189
+\end{Verbatim}
+        
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}88}]:} <matplotlib.text.Text at 0x7f683c221cc0>
+\end{Verbatim}
+        
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{github-survey-descriptive-stats_files/github-survey-descriptive-stats_123_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsubsection{What kind of problem did they help you
+with?}\label{what-kind-of-problem-did-they-help-you-with}
+
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}89}]:}                                                     RECEIVED.HELP.TYPE
+         Writing code or otherwise implementing ideas.                     1633
+         Installing or using an application.                                820
+         Understanding community norms (e.g. how to subm{\ldots}                 181
+         Other (please describe)                                            142
+         Introductions to other people                                       13
+\end{Verbatim}
+        
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}90}]:}                                                       percent
+         Writing code or otherwise implementing ideas.       58.551452
+         Installing or using an application.                 29.401219
+         Understanding community norms (e.g. how to subm{\ldots}   6.489781
+         Other (please describe)                              5.091431
+         Introductions to other people                        0.466117
+\end{Verbatim}
+        
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}91}]:} <matplotlib.text.Text at 0x7f683c212d30>
+\end{Verbatim}
+        
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{github-survey-descriptive-stats_files/github-survey-descriptive-stats_127_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsubsection{Have you ever provided help for another person on an open
+source
+project?}\label{have-you-ever-provided-help-for-another-person-on-an-open-source-project}
+
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}92}]:}      PROVIDED.HELP
+         Yes           2891
+         No            1013
+\end{Verbatim}
+        
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}93}]:}        percent
+         Yes  74.052254
+         No   25.947746
+\end{Verbatim}
+        
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}94}]:} <matplotlib.text.Text at 0x7f683c1cff98>
+\end{Verbatim}
+        
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{github-survey-descriptive-stats_files/github-survey-descriptive-stats_131_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+
+    \subsubsection{Thinking of the most recent case where you helped
+someone, how did you come to help this
+person?}\label{thinking-of-the-most-recent-case-where-you-helped-someone-how-did-you-come-to-help-this-person}
+
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}95}]:}                                                     FIND.HELPEE
+         They asked for help in a public forum (e.g. in {\ldots}         1839
+         They asked me directly for help.                            566
+         I reached out to them to offer unsolicited help.            405
+         Other (please describe)                                      28
+\end{Verbatim}
+        
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}96}]:}                                                       percent
+         They asked for help in a public forum (e.g. in {\ldots}  64.799154
+         They asked me directly for help.                    19.943622
+         I reached out to them to offer unsolicited help.    14.270613
+         Other (please describe)                              0.986610
+\end{Verbatim}
+        
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}97}]:} <matplotlib.text.Text at 0x7f682bb7dcc0>
+\end{Verbatim}
+        
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{github-survey-descriptive-stats_files/github-survey-descriptive-stats_136_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsubsection{Which best describes your prior relationship with the
+person you
+helped?}\label{which-best-describes-your-prior-relationship-with-the-person-you-helped}
+
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}98}]:}                                                     HELPEE.PRIOR.RELATIONSHIP
+         Total strangers, I didn't know of them previously.                       1984
+         We knew each other well.                                                  292
+         I knew of them through their contributions to p{\ldots}                        288
+         We knew each other  a little.                                             275
+\end{Verbatim}
+        
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}99}]:}                                                       percent
+         Total strangers, I didn't know of them previously.  69.883762
+         We knew each other well.                            10.285312
+         I knew of them through their contributions to p{\ldots}  10.144417
+         We knew each other  a little.                        9.686509
+\end{Verbatim}
+        
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}100}]:} <matplotlib.text.Text at 0x7f682bb67d30>
+\end{Verbatim}
+        
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{github-survey-descriptive-stats_files/github-survey-descriptive-stats_140_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsubsection{What kind of problem did you help them
+with?}\label{what-kind-of-problem-did-you-help-them-with}
+
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}101}]:}                                                     PROVIDED.HELP.TYPE
+          Writing code or otherwise implementing ideas.                     1602
+          Installing or using an application.                               1028
+          Other (please describe)                                            101
+          Understanding community norms (e.g. how to subm{\ldots}                  99
+          Introductions to other people.                                       8
+\end{Verbatim}
+        
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}102}]:}                                                       percent
+          Writing code or otherwise implementing ideas.       56.448203
+          Installing or using an application.                 36.222692
+          Other (please describe)                              3.558844
+          Understanding community norms (e.g. how to subm{\ldots}   3.488372
+          Introductions to other people.                       0.281889
+\end{Verbatim}
+        
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}103}]:} <matplotlib.text.Text at 0x7f682bb33710>
+\end{Verbatim}
+        
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{github-survey-descriptive-stats_files/github-survey-descriptive-stats_144_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsection{Open Source Software in Paid
+Work}\label{open-source-software-in-paid-work}
+
+    \subsubsection{Do you contribute to open source as part of your
+professional
+work?}\label{do-you-contribute-to-open-source-as-part-of-your-professional-work}
+
+In other words, are you paid for any of your time spent on open source
+contributions?
+
+
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}104}]:}                                                     OSS.AS.JOB
+          Yes, indirectly- I contribute to open source in{\ldots}         896
+          No.                                                        687
+          Yes, directly-  some or all of my work duties i{\ldots}         464
+\end{Verbatim}
+        
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}105}]:}                                                       percent
+          Yes, indirectly- I contribute to open source in{\ldots}  43.771373
+          No.                                                 33.561309
+          Yes, directly-  some or all of my work duties i{\ldots}  22.667318
+\end{Verbatim}
+        
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}106}]:} <matplotlib.text.Text at 0x7f682ba73e80>
+\end{Verbatim}
+        
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{github-survey-descriptive-stats_files/github-survey-descriptive-stats_150_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsubsection{How often do you use open source software in your
+professional
+work?}\label{how-often-do-you-use-open-source-software-in-your-professional-work}
+
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}107}]:}             OSS.AT.WORK
+          Frequently         2191
+          Sometimes           300
+          Rarely              110
+          Never                65
+\end{Verbatim}
+        
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}108}]:}               percent
+          Frequently  82.183046
+          Sometimes   11.252813
+          Rarely       4.126032
+          Never        2.438110
+\end{Verbatim}
+        
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}109}]:} <matplotlib.text.Text at 0x7f682ba4d828>
+\end{Verbatim}
+        
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{github-survey-descriptive-stats_files/github-survey-descriptive-stats_154_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsubsection{How does your employer's intellectual property
+agreement/policy affect your free-time contributions to open source
+unrelated to your
+work?}\label{how-does-your-employers-intellectual-property-agreementpolicy-affect-your-free-time-contributions-to-open-source-unrelated-to-your-work}
+
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}110}]:}                                                     OSS.IP.POLICY
+          I am free to contribute without asking for perm{\ldots}           1178
+          My employer doesn't have a clear policy on this.              695
+          I am permitted to contribute to open source, bu{\ldots}            287
+          I'm not sure.                                                 238
+          Not applicable                                                180
+          I am not permitted to contribute to open source{\ldots}             63
+\end{Verbatim}
+        
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}111}]:}                                                       percent
+          I am free to contribute without asking for perm{\ldots}  44.604317
+          My employer doesn't have a clear policy on this.    26.315789
+          I am permitted to contribute to open source, bu{\ldots}  10.867096
+          I'm not sure.                                        9.011738
+          Not applicable                                       6.815600
+          I am not permitted to contribute to open source{\ldots}   2.385460
+\end{Verbatim}
+        
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}112}]:} <matplotlib.text.Text at 0x7f6829cb7c18>
+\end{Verbatim}
+        
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{github-survey-descriptive-stats_files/github-survey-descriptive-stats_158_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsubsection{Which is closest to your employer's policy on using open
+source software
+applications?}\label{which-is-closest-to-your-employers-policy-on-using-open-source-software-applications}
+
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}113}]:}                                                     EMPLOYER.POLICY.APPLICATIONS
+          Use of open source applications is encouraged.                              1174
+          Use of open source applications is acceptable i{\ldots}                           916
+          My employer doesn't have a clear policy on this.                             338
+          Not applicable                                                                88
+          I'm not sure.                                                                 83
+          Use of open source applications is rarely, if e{\ldots}                            42
+\end{Verbatim}
+        
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}114}]:}                                                       percent
+          Use of open source applications is encouraged.      44.452859
+          Use of open source applications is acceptable i{\ldots}  34.683832
+          My employer doesn't have a clear policy on this.    12.798183
+          Not applicable                                       3.332071
+          I'm not sure.                                        3.142749
+          Use of open source applications is rarely, if e{\ldots}   1.590307
+\end{Verbatim}
+        
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}115}]:} <matplotlib.text.Text at 0x7f6829b74c88>
+\end{Verbatim}
+        
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{github-survey-descriptive-stats_files/github-survey-descriptive-stats_162_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsubsection{How important do you think your involvement in open
+source was to getting your current
+job?}\label{how-important-do-you-think-your-involvement-in-open-source-was-to-getting-your-current-job}
+
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}116}]:}                                                     OSS.HIRING
+          Very important                                             618
+          Somewhat important                                         448
+          Not at all important                                       361
+          Not too important                                          352
+          Not applicable-I hadn't made any contributions {\ldots}         254
+\end{Verbatim}
+        
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}117}]:}                                                       percent
+          Very important                                      30.398426
+          Somewhat important                                  22.036399
+          Not at all important                                17.757009
+          Not too important                                   17.314314
+          Not applicable-I hadn't made any contributions {\ldots}  12.493851
+\end{Verbatim}
+        
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}118}]:} <matplotlib.text.Text at 0x7f6829aff320>
+\end{Verbatim}
+        
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{github-survey-descriptive-stats_files/github-survey-descriptive-stats_166_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsection{Demographics}\label{demographics}
+
+    \subsubsection{Do you currently live in a country other than the one in
+which you were
+born?}\label{do-you-currently-live-in-a-country-other-than-the-one-in-which-you-were-born}
+
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}119}]:}                                                IMMIGRATION
+          No, I live in the country where I was born.           2764
+          Yes, and I intend to stay permanently.                 513
+          Yes, and I am not sure about my future plans.          292
+          Yes, and I intend to stay temporarily.                 165
+\end{Verbatim}
+        
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}120}]:}                                                  percent
+          No, I live in the country where I was born.    74.022496
+          Yes, and I intend to stay permanently.         13.738618
+          Yes, and I am not sure about my future plans.   7.820032
+          Yes, and I intend to stay temporarily.          4.418854
+\end{Verbatim}
+        
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}121}]:} <matplotlib.text.Text at 0x7f6829a88390>
+\end{Verbatim}
+        
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{github-survey-descriptive-stats_files/github-survey-descriptive-stats_171_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsubsection{Thinking of where you were born, are you a member of an
+ethnicity or nationality that is a considered a minority in that
+country?}\label{thinking-of-where-you-were-born-are-you-a-member-of-an-ethnicity-or-nationality-that-is-a-considered-a-minority-in-that-country}
+
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}122}]:}                    MINORITY.HOMECOUNTRY
+          No                                  754
+          Yes                                 124
+          Not sure                             45
+          Prefer not to say                    34
+\end{Verbatim}
+        
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}123}]:}                      percent
+          No                 78.787879
+          Yes                12.957158
+          Not sure            4.702194
+          Prefer not to say   3.552769
+\end{Verbatim}
+        
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}124}]:} <matplotlib.text.Text at 0x7f6829a0a518>
+\end{Verbatim}
+        
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{github-survey-descriptive-stats_files/github-survey-descriptive-stats_175_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+
+    \subsubsection{Thinking of where you currently live, are you a member of
+an ethnicity or nationality that is a considered a minority in that
+country?}\label{thinking-of-where-you-currently-live-are-you-a-member-of-an-ethnicity-or-nationality-that-is-a-considered-a-minority-in-that-country}
+
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}125}]:}                    MINORITY.CURRENT.COUNTRY
+          No                                     2837
+          Yes                                     546
+          Not sure                                193
+          Prefer not to say                       156
+\end{Verbatim}
+        
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}126}]:}                      percent
+          No                 76.018221
+          Yes                14.630225
+          Not sure            5.171490
+          Prefer not to say   4.180064
+\end{Verbatim}
+        
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}127}]:} <matplotlib.text.Text at 0x7f6829992780>
+\end{Verbatim}
+        
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{github-survey-descriptive-stats_files/github-survey-descriptive-stats_180_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+
+    \subsubsection{What is your gender?}\label{what-is-your-gender}
+
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}128}]:}                       GENDER
+          Man                     3387
+          Prefer not to say        173
+          Woman                    125
+          Non-binary  or Other      39
+\end{Verbatim}
+        
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}129}]:}                         percent
+          Man                   90.950591
+          Prefer not to say      4.645542
+          Woman                  3.356606
+          Non-binary  or Other   1.047261
+\end{Verbatim}
+        
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}130}]:} <matplotlib.text.Text at 0x7f6829916940>
+\end{Verbatim}
+        
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{github-survey-descriptive-stats_files/github-survey-descriptive-stats_185_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsubsection{Do you identify as
+transgender?}\label{do-you-identify-as-transgender}
+
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}131}]:}                    TRANSGENDER.IDENTITY
+          No                                 3494
+          Prefer not to say                   158
+          Yes                                  33
+          Not sure                             30
+\end{Verbatim}
+        
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}132}]:}                      percent
+          No                 94.051144
+          Prefer not to say   4.253028
+          Yes                 0.888291
+          Not sure            0.807537
+\end{Verbatim}
+        
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}133}]:} <matplotlib.text.Text at 0x7f682989da20>
+\end{Verbatim}
+        
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{github-survey-descriptive-stats_files/github-survey-descriptive-stats_189_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+
+    \subsubsection{Do you identify as gay, lesbian, or bisexual, asexual, or
+any other minority sexual
+orientation?}\label{do-you-identify-as-gay-lesbian-or-bisexual-asexual-or-any-other-minority-sexual-orientation}
+
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}134}]:}                    SEXUAL.ORIENTATION
+          No                               3187
+          Yes                               246
+          Prefer not to say                 201
+          Not sure                           85
+\end{Verbatim}
+        
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}135}]:}                      percent
+          No                 85.695079
+          Yes                 6.614681
+          Prefer not to say   5.404679
+          Not sure            2.285561
+\end{Verbatim}
+        
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}136}]:} <matplotlib.text.Text at 0x7f68297a5b38>
+\end{Verbatim}
+        
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{github-survey-descriptive-stats_files/github-survey-descriptive-stats_194_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsubsection{How well can you read and write in
+English?}\label{how-well-can-you-read-and-write-in-english}
+
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}137}]:}                  WRITTEN.ENGLISH
+          Very well                   2865
+          Moderately well              742
+          Not very well                108
+          Not at all                     6
+\end{Verbatim}
+        
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}138}]:}                    percent
+          Very well        76.995431
+          Moderately well  19.940876
+          Not very well     2.902446
+          Not at all        0.161247
+\end{Verbatim}
+        
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}139}]:} <matplotlib.text.Text at 0x7f682972c358>
+\end{Verbatim}
+        
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{github-survey-descriptive-stats_files/github-survey-descriptive-stats_198_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+
+    \subsubsection{What is your age?}\label{what-is-your-age}
+
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}140}]:}                     AGE
+          17 or younger       139
+          18 to 24 years      871
+          25 to 34 years     1400
+          35 to 44 years      772
+          45 to 54 years      267
+          55 to 64 years       93
+          65 years or older    36
+\end{Verbatim}
+        
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}141}]:}                      percent
+          17 or younger       3.884852
+          18 to 24 years     24.343208
+          25 to 34 years     39.128004
+          35 to 44 years     21.576300
+          45 to 54 years      7.462269
+          55 to 64 years      2.599217
+          65 years or older   1.006149
+\end{Verbatim}
+        
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}142}]:} <matplotlib.text.Text at 0x7f68296aeb70>
+\end{Verbatim}
+        
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{github-survey-descriptive-stats_files/github-survey-descriptive-stats_203_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+
+    \subsubsection{What is highest level of formal education that you have
+completed?}\label{what-is-highest-level-of-formal-education-that-you-have-completed}
+
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}143}]:}                                                     FORMAL.EDUCATION
+          Bachelor's degree                                               1321
+          Master's degree                                                  852
+          Some college, no degree                                          640
+          Secondary (high) school graduate or equivalent                   375
+          Doctorate (Ph.D.) or other advanced degree (e.g{\ldots}               256
+          Vocational/trade program or apprenticeship                       127
+          Less than secondary (high) school                                126
+\end{Verbatim}
+        
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}144}]:}                                                       percent
+          Bachelor's degree                                   35.731674
+          Master's degree                                     23.045713
+          Some college, no degree                             17.311334
+          Secondary (high) school graduate or equivalent      10.143359
+          Doctorate (Ph.D.) or other advanced degree (e.g{\ldots}   6.924533
+          Vocational/trade program or apprenticeship           3.435218
+          Less than secondary (high) school                    3.408169
+\end{Verbatim}
+        
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}145}]:} <matplotlib.text.Text at 0x7f6829648320>
+\end{Verbatim}
+        
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{github-survey-descriptive-stats_files/github-survey-descriptive-stats_208_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+
+    \subsubsection{What is the highest level of formal education that either
+of your parents
+completed?}\label{what-is-the-highest-level-of-formal-education-that-either-of-your-parents-completed}
+
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}146}]:}                                                     PARENTS.FORMAL.EDUCATION
+          Bachelor's degree                                                        961
+          Master's degree                                                          871
+          Secondary (high) school graduate or equivalent                           566
+          Some college, no degree                                                  388
+          Doctorate (Ph.D.) or other advanced degree (e.g{\ldots}                       387
+          Vocational/trade program or apprenticeship                               257
+          Less than secondary (high) school                                        243
+\end{Verbatim}
+        
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}147}]:}                                                       percent
+          Bachelor's degree                                   26.163899
+          Master's degree                                     23.713586
+          Secondary (high) school graduate or equivalent      15.409747
+          Some college, no degree                             10.563572
+          Doctorate (Ph.D.) or other advanced degree (e.g{\ldots}  10.536346
+          Vocational/trade program or apprenticeship           6.997005
+          Less than secondary (high) school                    6.615845
+\end{Verbatim}
+        
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}148}]:} <matplotlib.text.Text at 0x7f68295cd748>
+\end{Verbatim}
+        
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{github-survey-descriptive-stats_files/github-survey-descriptive-stats_213_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+
+
+    \subsubsection{How old were you when you first had regular access to a
+computer with an internet
+connection?}\label{how-old-were-you-when-you-first-had-regular-access-to-a-computer-with-an-internet-connection}
+
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}149}]:}                            AGE.AT.FIRST.COMPUTER.INTERNET
+          Younger than 13 years old                            1478
+          13 - 17 years old                                    1313
+          18 - 24 years old                                     695
+          25 - 45 years old                                     202
+          Older than 45 years old                                23
+\end{Verbatim}
+        
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}150}]:}                              percent
+          Younger than 13 years old  39.827540
+          13 - 17 years old          35.381299
+          18 - 24 years old          18.728106
+          25 - 45 years old           5.443277
+          Older than 45 years old     0.619779
+\end{Verbatim}
+        
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}151}]:} <matplotlib.text.Text at 0x7f682955e4a8>
+\end{Verbatim}
+        
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{github-survey-descriptive-stats_files/github-survey-descriptive-stats_219_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+
+    \subsubsection{Where did you first have regular access to a computer
+with internet
+connection?}\label{where-did-you-first-have-regular-access-to-a-computer-with-internet-connection}
+
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}152}]:}                                                     LOCATION.OF.FIRST.COMPUTER.INTERNET
+          At home (belonging to me or a family member)                                       2520
+          In a classroom, computer lab, or library at school                                  746
+          At an internet cafe or similar space                                                182
+          Other (please describe)                                                             106
+          At a public library or community center                                              87
+          At work (recoded from open ended)                                                    70
+\end{Verbatim}
+        
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}153}]:}                                                       percent
+          At home (belonging to me or a family member)        67.906225
+          In a classroom, computer lab, or library at school  20.102398
+          At an internet cafe or similar space                 4.904338
+          Other (please describe)                              2.856373
+          At a public library or community center              2.344382
+          At work (recoded from open ended)                    1.886284
+\end{Verbatim}
+        
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}154}]:} <matplotlib.text.Text at 0x7f682946a780>
+\end{Verbatim}
+        
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{github-survey-descriptive-stats_files/github-survey-descriptive-stats_224_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsection{Harassment / Inclusiveness of
+OSS}\label{harassment-inclusiveness-of-oss}
+
+    \subsubsection{Have you ever observed any of the following in the
+context of an open source
+project?}\label{have-you-ever-observed-any-of-the-following-in-the-context-of-an-open-source-project}
+
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}155}]:}                                                    Yes    No
+          DISCOURAGING.BEHAVIOR.LACK.OF.RESPONSE            3017   792
+          DISCOURAGING.BEHAVIOR.REJECTION.WOUT.EXPLANATION  1210  2580
+          DISCOURAGING.BEHAVIOR.DISMISSIVE.RESPONSE         2195  1598
+          DISCOURAGING.BEHAVIOR.BAD.DOCS                    3559   263
+          DISCOURAGING.BEHAVIOR.CONFLICT                    1830  1966
+          DISCOURAGING.BEHAVIOR.UNWELCOMING.LANGUAGE         649  3158
+\end{Verbatim}
+        
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}156}]:}                                                   percent\_yes
+          DISCOURAGING.BEHAVIOR.UNWELCOMING.LANGUAGE          17.047544
+          DISCOURAGING.BEHAVIOR.REJECTION.WOUT.EXPLANATION    31.926121
+          DISCOURAGING.BEHAVIOR.CONFLICT                      48.208641
+          DISCOURAGING.BEHAVIOR.DISMISSIVE.RESPONSE           57.869760
+          DISCOURAGING.BEHAVIOR.LACK.OF.RESPONSE              79.207141
+          DISCOURAGING.BEHAVIOR.BAD.DOCS                      93.118786
+\end{Verbatim}
+        
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{github-survey-descriptive-stats_files/github-survey-descriptive-stats_229_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+
+    \subsubsection{Have you ever witnessed any of the following behaviors
+directed at another person in the context of an open source project?
+(not including something directed at
+you)}\label{have-you-ever-witnessed-any-of-the-following-behaviors-directed-at-another-person-in-the-context-of-an-open-source-project-not-including-something-directed-at-you}
+
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}158}]:}                                              Yes    No
+          NEGATIVE.WITNESS.RUDENESS                   1753  4276
+          NEGATIVE.WITNESS.NAME.CALLING                789  5240
+          NEGATIVE.WITNESS.THREATS                     162  5867
+          NEGATIVE.WITNESS.IMPERSONATION               177  5852
+          NEGATIVE.WITNESS.SUSTAINED.HARASSMENT        237  5792
+          NEGATIVE.WITNESS.CROSS.PLATFORM.HARASSMENT   175  5854
+          NEGATIVE.WITNESS.STALKING                    108  5921
+          NEGATIVE.WITNESS.SEXUAL.ADVANCES             136  5893
+          NEGATIVE.WITNESS.STEREOTYPING                423  5606
+          NEGATIVE.WITNESS.DOXXING                     151  5878
+          NEGATIVE.WITNESS.OTHER                        78  5951
+          NEGATIVE.WITNESS.NONE.OF.THE.ABOVE          1721  4308
+          NEGATIVE.WITNESS.ANY.RESPONSE               3664  2365
+\end{Verbatim}
+        
+    Only 3,664 respondents clicked any boxes in this question, meaning 2,365
+did not click the "none of the above".
+
+
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}160}]:}                                              Yes    No
+          NEGATIVE.WITNESS.RUDENESS                   1753  1911
+          NEGATIVE.WITNESS.NAME.CALLING                789  2875
+          NEGATIVE.WITNESS.THREATS                     162  3502
+          NEGATIVE.WITNESS.IMPERSONATION               177  3487
+          NEGATIVE.WITNESS.SUSTAINED.HARASSMENT        237  3427
+          NEGATIVE.WITNESS.CROSS.PLATFORM.HARASSMENT   175  3489
+          NEGATIVE.WITNESS.STALKING                    108  3556
+          NEGATIVE.WITNESS.SEXUAL.ADVANCES             136  3528
+          NEGATIVE.WITNESS.STEREOTYPING                423  3241
+          NEGATIVE.WITNESS.DOXXING                     151  3513
+          NEGATIVE.WITNESS.OTHER                        78  3586
+          NEGATIVE.WITNESS.NONE.OF.THE.ABOVE          1721  1943
+\end{Verbatim}
+        
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}161}]:}                                             percent\_yes
+          NEGATIVE.WITNESS.OTHER                         2.128821
+          NEGATIVE.WITNESS.STALKING                      2.947598
+          NEGATIVE.WITNESS.SEXUAL.ADVANCES               3.711790
+          NEGATIVE.WITNESS.DOXXING                       4.121179
+          NEGATIVE.WITNESS.THREATS                       4.421397
+          NEGATIVE.WITNESS.CROSS.PLATFORM.HARASSMENT     4.776201
+          NEGATIVE.WITNESS.IMPERSONATION                 4.830786
+          NEGATIVE.WITNESS.SUSTAINED.HARASSMENT          6.468341
+          NEGATIVE.WITNESS.STEREOTYPING                 11.544760
+          NEGATIVE.WITNESS.NAME.CALLING                 21.533843
+          NEGATIVE.WITNESS.NONE.OF.THE.ABOVE            46.970524
+          NEGATIVE.WITNESS.RUDENESS                     47.843886
+          NEGATIVE.WITNESS.ANY.RESPONSE                100.000000
+\end{Verbatim}
+        
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{github-survey-descriptive-stats_files/github-survey-descriptive-stats_237_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsubsection{Have you ever experienced any of the following behaviors
+directed at you in the context of an open source
+project?}\label{have-you-ever-experienced-any-of-the-following-behaviors-directed-at-you-in-the-context-of-an-open-source-project}
+
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}163}]:}                                                 Yes    No
+          NEGATIVE.EXPERIENCE.RUDENESS                    646  5383
+          NEGATIVE.EXPERIENCE.NAME.CALLING                192  5837
+          NEGATIVE.EXPERIENCE.THREATS                      43  5986
+          NEGATIVE.EXPERIENCE.IMPERSONATION                45  5984
+          NEGATIVE.EXPERIENCE.SUSTAINED.HARASSMENT         55  5974
+          NEGATIVE.EXPERIENCE.CROSS.PLATFORM.HARASSMENT    42  5987
+          NEGATIVE.EXPERIENCE.STALKING                     35  5994
+          NEGATIVE.EXPERIENCE.SEXUAL.ADVANCES              25  6004
+          NEGATIVE.EXPERIENCE.STEREOTYPING                114  5915
+          NEGATIVE.EXPERIENCE.DOXXING                      23  6006
+          NEGATIVE.EXPERIENCE.OTHER                        39  5990
+          NEGATIVE.EXPERIENCE.NONE.OF.THE.ABOVE          2900  3129
+          NEGATIVE.EXPERIENCE.ANY.RESPONSE               3638  2391
+\end{Verbatim}
+        
+    Only 3,638 respondents clicked any boxes in this question, meaning 2,391
+did not click the "none of the above".
+
+
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}165}]:}                                                 Yes    No
+          NEGATIVE.EXPERIENCE.RUDENESS                    646  2992
+          NEGATIVE.EXPERIENCE.NAME.CALLING                192  3446
+          NEGATIVE.EXPERIENCE.THREATS                      43  3595
+          NEGATIVE.EXPERIENCE.IMPERSONATION                45  3593
+          NEGATIVE.EXPERIENCE.SUSTAINED.HARASSMENT         55  3583
+          NEGATIVE.EXPERIENCE.CROSS.PLATFORM.HARASSMENT    42  3596
+          NEGATIVE.EXPERIENCE.STALKING                     35  3603
+          NEGATIVE.EXPERIENCE.SEXUAL.ADVANCES              25  3613
+          NEGATIVE.EXPERIENCE.STEREOTYPING                114  3524
+          NEGATIVE.EXPERIENCE.DOXXING                      23  3615
+          NEGATIVE.EXPERIENCE.OTHER                        39  3599
+          NEGATIVE.EXPERIENCE.NONE.OF.THE.ABOVE          2900   738
+\end{Verbatim}
+        
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}166}]:}                                                percent\_yes
+          NEGATIVE.EXPERIENCE.DOXXING                       0.632216
+          NEGATIVE.EXPERIENCE.SEXUAL.ADVANCES               0.687191
+          NEGATIVE.EXPERIENCE.STALKING                      0.962067
+          NEGATIVE.EXPERIENCE.OTHER                         1.072018
+          NEGATIVE.EXPERIENCE.CROSS.PLATFORM.HARASSMENT     1.154480
+          NEGATIVE.EXPERIENCE.THREATS                       1.181968
+          NEGATIVE.EXPERIENCE.IMPERSONATION                 1.236943
+          NEGATIVE.EXPERIENCE.SUSTAINED.HARASSMENT          1.511820
+          NEGATIVE.EXPERIENCE.STEREOTYPING                  3.133590
+          NEGATIVE.EXPERIENCE.NAME.CALLING                  5.277625
+          NEGATIVE.EXPERIENCE.RUDENESS                     17.757009
+          NEGATIVE.EXPERIENCE.NONE.OF.THE.ABOVE            79.714129
+          NEGATIVE.EXPERIENCE.ANY.RESPONSE                100.000000
+\end{Verbatim}
+        
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{github-survey-descriptive-stats_files/github-survey-descriptive-stats_244_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsubsection{Thinking of the last time you experienced harassment, how
+did you
+respond?}\label{thinking-of-the-last-time-you-experienced-harassment-how-did-you-respond}
+
+Choose all that apply.
+
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}168}]:}                                                Yes    No
+          NEGATIVE.RESPONSE.ASKED.USER.TO.STOP           194  5835
+          NEGATIVE.RESPONSE.SOLICITED.COMMUNITY.SUPPORT  112  5917
+          NEGATIVE.RESPONSE.BLOCKED.USER                 170  5859
+          NEGATIVE.RESPONSE.REPORTED.TO.MAINTAINERS       95  5934
+          NEGATIVE.RESPONSE.REPORTED.TO.HOST.OR.ISP       20  6009
+          NEGATIVE.RESPONSE.CONSULTED.LEGAL.COUNSEL        8  6021
+          NEGATIVE.RESPONSE.CONTACTED.LAW.ENFORCEMENT      9  6020
+          NEGATIVE.RESPONSE.OTHER                         71  5958
+          NEGATIVE.RESPONSE.IGNORED                      350  5679
+          NEGATIVE.RESPONSE.ANY.RESPONSE                 719  5310
+\end{Verbatim}
+        
+    Only 719 respondents clicked any boxes in this question, meaning 5,310
+did not click on "I did not react / ignored the incident".
+
+
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}170}]:}                                                Yes   No
+          NEGATIVE.RESPONSE.ASKED.USER.TO.STOP           194  525
+          NEGATIVE.RESPONSE.SOLICITED.COMMUNITY.SUPPORT  112  607
+          NEGATIVE.RESPONSE.BLOCKED.USER                 170  549
+          NEGATIVE.RESPONSE.REPORTED.TO.MAINTAINERS       95  624
+          NEGATIVE.RESPONSE.REPORTED.TO.HOST.OR.ISP       20  699
+          NEGATIVE.RESPONSE.CONSULTED.LEGAL.COUNSEL        8  711
+          NEGATIVE.RESPONSE.CONTACTED.LAW.ENFORCEMENT      9  710
+          NEGATIVE.RESPONSE.OTHER                         71  648
+          NEGATIVE.RESPONSE.IGNORED                      350  369
+\end{Verbatim}
+        
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}171}]:}                                                percent\_yes
+          NEGATIVE.RESPONSE.CONSULTED.LEGAL.COUNSEL         1.112656
+          NEGATIVE.RESPONSE.CONTACTED.LAW.ENFORCEMENT       1.251739
+          NEGATIVE.RESPONSE.REPORTED.TO.HOST.OR.ISP         2.781641
+          NEGATIVE.RESPONSE.OTHER                           9.874826
+          NEGATIVE.RESPONSE.REPORTED.TO.MAINTAINERS        13.212796
+          NEGATIVE.RESPONSE.SOLICITED.COMMUNITY.SUPPORT    15.577191
+          NEGATIVE.RESPONSE.BLOCKED.USER                   23.643950
+          NEGATIVE.RESPONSE.ASKED.USER.TO.STOP             26.981919
+          NEGATIVE.RESPONSE.IGNORED                        48.678720
+          NEGATIVE.RESPONSE.ANY.RESPONSE                  100.000000
+\end{Verbatim}
+        
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{github-survey-descriptive-stats_files/github-survey-descriptive-stats_251_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+
+    \subsubsection{How effective were the following
+responses?}\label{how-effective-were-the-following-responses}
+
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}173}]:}                                                     Not at all effective  \textbackslash{}
+          RESPONSE.EFFECTIVENESS.CONTACTED.LAW.ENFORCEMENT                     4.0   
+          RESPONSE.EFFECTIVENESS.CONSULTED.LEGAL.COUNSEL                       1.0   
+          RESPONSE.EFFECTIVENESS.REPORTED.TO.HOST.OR.ISP                       6.0   
+          RESPONSE.EFFECTIVENESS.OTHER                                         4.0   
+          RESPONSE.EFFECTIVENESS.REPORTED.TO.MAINTAINERS                      10.0   
+          RESPONSE.EFFECTIVENESS.SOLICITED.COMMUNITY.SUPPORT                   6.0   
+          RESPONSE.EFFECTIVENESS.ASKED.USER.TO.STOP                           48.0   
+          RESPONSE.EFFECTIVENESS.BLOCKED.USER                                  6.0   
+          
+                                                              A little effective  \textbackslash{}
+          RESPONSE.EFFECTIVENESS.CONTACTED.LAW.ENFORCEMENT                   0.0   
+          RESPONSE.EFFECTIVENESS.CONSULTED.LEGAL.COUNSEL                     1.0   
+          RESPONSE.EFFECTIVENESS.REPORTED.TO.HOST.OR.ISP                     4.0   
+          RESPONSE.EFFECTIVENESS.OTHER                                       0.0   
+          RESPONSE.EFFECTIVENESS.REPORTED.TO.MAINTAINERS                    11.0   
+          RESPONSE.EFFECTIVENESS.SOLICITED.COMMUNITY.SUPPORT                22.0   
+          RESPONSE.EFFECTIVENESS.ASKED.USER.TO.STOP                         51.0   
+          RESPONSE.EFFECTIVENESS.BLOCKED.USER                               20.0   
+          
+                                                              Somewhat effective  \textbackslash{}
+          RESPONSE.EFFECTIVENESS.CONTACTED.LAW.ENFORCEMENT                   2.0   
+          RESPONSE.EFFECTIVENESS.CONSULTED.LEGAL.COUNSEL                     3.0   
+          RESPONSE.EFFECTIVENESS.REPORTED.TO.HOST.OR.ISP                     6.0   
+          RESPONSE.EFFECTIVENESS.OTHER                                       4.0   
+          RESPONSE.EFFECTIVENESS.REPORTED.TO.MAINTAINERS                    31.0   
+          RESPONSE.EFFECTIVENESS.SOLICITED.COMMUNITY.SUPPORT                38.0   
+          RESPONSE.EFFECTIVENESS.ASKED.USER.TO.STOP                         50.0   
+          RESPONSE.EFFECTIVENESS.BLOCKED.USER                               28.0   
+          
+                                                              Mostly effective  \textbackslash{}
+          RESPONSE.EFFECTIVENESS.CONTACTED.LAW.ENFORCEMENT                 0.0   
+          RESPONSE.EFFECTIVENESS.CONSULTED.LEGAL.COUNSEL                   2.0   
+          RESPONSE.EFFECTIVENESS.REPORTED.TO.HOST.OR.ISP                   3.0   
+          RESPONSE.EFFECTIVENESS.OTHER                                    10.0   
+          RESPONSE.EFFECTIVENESS.REPORTED.TO.MAINTAINERS                  30.0   
+          RESPONSE.EFFECTIVENESS.SOLICITED.COMMUNITY.SUPPORT              32.0   
+          RESPONSE.EFFECTIVENESS.ASKED.USER.TO.STOP                       33.0   
+          RESPONSE.EFFECTIVENESS.BLOCKED.USER                             56.0   
+          
+                                                              Completely effective  
+          RESPONSE.EFFECTIVENESS.CONTACTED.LAW.ENFORCEMENT                     3.0  
+          RESPONSE.EFFECTIVENESS.CONSULTED.LEGAL.COUNSEL                       1.0  
+          RESPONSE.EFFECTIVENESS.REPORTED.TO.HOST.OR.ISP                       1.0  
+          RESPONSE.EFFECTIVENESS.OTHER                                        11.0  
+          RESPONSE.EFFECTIVENESS.REPORTED.TO.MAINTAINERS                      13.0  
+          RESPONSE.EFFECTIVENESS.SOLICITED.COMMUNITY.SUPPORT                  14.0  
+          RESPONSE.EFFECTIVENESS.ASKED.USER.TO.STOP                           11.0  
+          RESPONSE.EFFECTIVENESS.BLOCKED.USER                                 58.0  
+\end{Verbatim}
+        
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{github-survey-descriptive-stats_files/github-survey-descriptive-stats_255_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}175}]:}                                                     Not at all effective  \textbackslash{}
+          RESPONSE.EFFECTIVENESS.REPORTED.TO.HOST.OR.ISP                 30.000000   
+          RESPONSE.EFFECTIVENESS.ASKED.USER.TO.STOP                      24.870466   
+          RESPONSE.EFFECTIVENESS.SOLICITED.COMMUNITY.SUPPORT              5.357143   
+          RESPONSE.EFFECTIVENESS.CONSULTED.LEGAL.COUNSEL                 12.500000   
+          RESPONSE.EFFECTIVENESS.REPORTED.TO.MAINTAINERS                 10.526316   
+          RESPONSE.EFFECTIVENESS.CONTACTED.LAW.ENFORCEMENT               44.444444   
+          RESPONSE.EFFECTIVENESS.BLOCKED.USER                             3.571429   
+          RESPONSE.EFFECTIVENESS.OTHER                                   13.793103   
+          
+                                                              A little effective  \textbackslash{}
+          RESPONSE.EFFECTIVENESS.REPORTED.TO.HOST.OR.ISP               20.000000   
+          RESPONSE.EFFECTIVENESS.ASKED.USER.TO.STOP                    26.424870   
+          RESPONSE.EFFECTIVENESS.SOLICITED.COMMUNITY.SUPPORT           19.642857   
+          RESPONSE.EFFECTIVENESS.CONSULTED.LEGAL.COUNSEL               12.500000   
+          RESPONSE.EFFECTIVENESS.REPORTED.TO.MAINTAINERS               11.578947   
+          RESPONSE.EFFECTIVENESS.CONTACTED.LAW.ENFORCEMENT              0.000000   
+          RESPONSE.EFFECTIVENESS.BLOCKED.USER                          11.904762   
+          RESPONSE.EFFECTIVENESS.OTHER                                  0.000000   
+          
+                                                              Somewhat effective  \textbackslash{}
+          RESPONSE.EFFECTIVENESS.REPORTED.TO.HOST.OR.ISP               30.000000   
+          RESPONSE.EFFECTIVENESS.ASKED.USER.TO.STOP                    25.906736   
+          RESPONSE.EFFECTIVENESS.SOLICITED.COMMUNITY.SUPPORT           33.928571   
+          RESPONSE.EFFECTIVENESS.CONSULTED.LEGAL.COUNSEL               37.500000   
+          RESPONSE.EFFECTIVENESS.REPORTED.TO.MAINTAINERS               32.631579   
+          RESPONSE.EFFECTIVENESS.CONTACTED.LAW.ENFORCEMENT             22.222222   
+          RESPONSE.EFFECTIVENESS.BLOCKED.USER                          16.666667   
+          RESPONSE.EFFECTIVENESS.OTHER                                 13.793103   
+          
+                                                              Mostly effective  \textbackslash{}
+          RESPONSE.EFFECTIVENESS.REPORTED.TO.HOST.OR.ISP             15.000000   
+          RESPONSE.EFFECTIVENESS.ASKED.USER.TO.STOP                  17.098446   
+          RESPONSE.EFFECTIVENESS.SOLICITED.COMMUNITY.SUPPORT         28.571429   
+          RESPONSE.EFFECTIVENESS.CONSULTED.LEGAL.COUNSEL             25.000000   
+          RESPONSE.EFFECTIVENESS.REPORTED.TO.MAINTAINERS             31.578947   
+          RESPONSE.EFFECTIVENESS.CONTACTED.LAW.ENFORCEMENT            0.000000   
+          RESPONSE.EFFECTIVENESS.BLOCKED.USER                        33.333333   
+          RESPONSE.EFFECTIVENESS.OTHER                               34.482759   
+          
+                                                              Completely effective  
+          RESPONSE.EFFECTIVENESS.REPORTED.TO.HOST.OR.ISP                  5.000000  
+          RESPONSE.EFFECTIVENESS.ASKED.USER.TO.STOP                       5.699482  
+          RESPONSE.EFFECTIVENESS.SOLICITED.COMMUNITY.SUPPORT             12.500000  
+          RESPONSE.EFFECTIVENESS.CONSULTED.LEGAL.COUNSEL                 12.500000  
+          RESPONSE.EFFECTIVENESS.REPORTED.TO.MAINTAINERS                 13.684211  
+          RESPONSE.EFFECTIVENESS.CONTACTED.LAW.ENFORCEMENT               33.333333  
+          RESPONSE.EFFECTIVENESS.BLOCKED.USER                            34.523810  
+          RESPONSE.EFFECTIVENESS.OTHER                                   37.931034  
+\end{Verbatim}
+        
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{github-survey-descriptive-stats_files/github-survey-descriptive-stats_257_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsubsection{As a result of experiencing or witnessing harassment,
+which, if any, of the following have you
+done?}\label{as-a-result-of-experiencing-or-witnessing-harassment-which-if-any-of-the-following-have-you-done}
+
+
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}177}]:}                                                      Yes    No
+          NEGATIVE.CONSEQUENCES.STOPPED.CONTRIBUTING           390  5639
+          NEGATIVE.CONSEQUENCES.PSEUDONYM                       50  5979
+          NEGATIVE.CONSEQUENCES.WORK.IN.PRIVATE                166  5863
+          NEGATIVE.CONSEQUENCES.CHANGE.USERNAME                 48  5981
+          NEGATIVE.CONSEQUENCES.CHANGE.ONLINE.PRESENCE          79  5950
+          NEGATIVE.CONSEQUENCES.SUGGEST.COC                    116  5913
+          NEGATIVE.CONSEQUENCES.PRIVATE.COMMUNITY.DISCUSSION   301  5728
+          NEGATIVE.CONSEQUENCES.PUBLIC.COMMUNITY.DISCUSSION    248  5781
+          NEGATIVE.CONSEQUENCES.OFFLINE.CHANGES                 85  5944
+          NEGATIVE.CONSEQUENCES.OTHER                           90  5939
+          NEGATIVE.CONSEQUENCES.NONE.OF.THE.ABOVE             1094  4935
+          NEGATIVE.CONSEQUENCES.ANY.RESPONSE                  1953  4076
+\end{Verbatim}
+        
+    Only 1,953 respondents clicked any boxes in this question, meaning 4,076
+did not click a response or the "none of the above".
+
+
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}179}]:}                                                      Yes    No
+          NEGATIVE.CONSEQUENCES.STOPPED.CONTRIBUTING           390  1563
+          NEGATIVE.CONSEQUENCES.PSEUDONYM                       50  1903
+          NEGATIVE.CONSEQUENCES.WORK.IN.PRIVATE                166  1787
+          NEGATIVE.CONSEQUENCES.CHANGE.USERNAME                 48  1905
+          NEGATIVE.CONSEQUENCES.CHANGE.ONLINE.PRESENCE          79  1874
+          NEGATIVE.CONSEQUENCES.SUGGEST.COC                    116  1837
+          NEGATIVE.CONSEQUENCES.PRIVATE.COMMUNITY.DISCUSSION   301  1652
+          NEGATIVE.CONSEQUENCES.PUBLIC.COMMUNITY.DISCUSSION    248  1705
+          NEGATIVE.CONSEQUENCES.OFFLINE.CHANGES                 85  1868
+          NEGATIVE.CONSEQUENCES.OTHER                           90  1863
+          NEGATIVE.CONSEQUENCES.NONE.OF.THE.ABOVE             1094   859
+\end{Verbatim}
+        
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}180}]:}                                                     percent\_yes
+          NEGATIVE.CONSEQUENCES.CHANGE.USERNAME                  2.457757
+          NEGATIVE.CONSEQUENCES.PSEUDONYM                        2.560164
+          NEGATIVE.CONSEQUENCES.CHANGE.ONLINE.PRESENCE           4.045059
+          NEGATIVE.CONSEQUENCES.OFFLINE.CHANGES                  4.352279
+          NEGATIVE.CONSEQUENCES.OTHER                            4.608295
+          NEGATIVE.CONSEQUENCES.SUGGEST.COC                      5.939580
+          NEGATIVE.CONSEQUENCES.WORK.IN.PRIVATE                  8.499744
+          NEGATIVE.CONSEQUENCES.PUBLIC.COMMUNITY.DISCUSSION     12.698413
+          NEGATIVE.CONSEQUENCES.PRIVATE.COMMUNITY.DISCUSSION    15.412186
+          NEGATIVE.CONSEQUENCES.STOPPED.CONTRIBUTING            19.969278
+          NEGATIVE.CONSEQUENCES.NONE.OF.THE.ABOVE               56.016385
+          NEGATIVE.CONSEQUENCES.ANY.RESPONSE                   100.000000
+\end{Verbatim}
+        
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{github-survey-descriptive-stats_files/github-survey-descriptive-stats_265_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
